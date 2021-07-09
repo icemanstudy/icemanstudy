@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="好学的我">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>刚入行时的一次聊天记录 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="刚入行时的一次聊天记录">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-02-02 09:55" pubdate>
+        2018年2月2日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">刚入行时的一次聊天记录</h1>
+            
+            <div class="markdown-body">
+              <p>iceman 10:50:14</p>
+<p>网络请求的数据返回使用callback形式和使用事件通知形式相比有什么优缺点?<br>携程是callback,我们现在用的localbroadcast通知,<br>同事现在觉得还是callback比较直接,也不用写那么多广播事件的tag来区分.<br>我也觉得callback写起来比较方便,也方便查看代码,但是似乎比较low?因为耦合度太高?<br>小白同学你怎么看?<br>小白 10:53:10</p>
+<p>从效率来说，callback。<br>iceman 10:54:09</p>
+<p>执行效率?<br>小白 10:54:28</p>
+<p>从设计来说，callback比较直接，而且很方便java写匿名内部类，这样发送和接收逻辑基本在一起，方便维护方便调试。</p>
+<p>iceman 10:54:49</p>
+<p>嗯…这是公认的优点<br>小白 10:55:30</p>
+<p>广播需要定义事件id来区分，这势必成为一个全局变量表。全局就是个坑。<br>iceman 10:56:17</p>
+<p>即使使用local的广播?<br>小白 10:56:43</p>
+<p>需要注册、解注册，是无谓的逻辑负担。可以被包装起来自动化处理，但和回调也没有多大区别。<br>小白 10:58:06</p>
+<p>local的广播依然是使用了队列。只不过是在进程内非常快速而已。<br>iceman 10:58:30</p>
+<p>嗯,之前看过一些事件通知的开源项目,eventbus什么的.后来觉得跟android的localbroadcast没啥区别,所以就先用这个通知了.注册和解注册写在基类就好,就是慢慢同事都觉得用起来不方便.<br>小白 10:59:04</p>
+<p>其实，“广播”就已经说明了问题。。。明明不是广播的场景，何必用广播？<br>iceman 10:59:29</p>
+<p>广播就是用于事件通知的啊…网络请求,不也是事件么<br>小白 10:59:36</p>
+<p>就像你想传话给你老婆，非要使用登报、广播、订阅报纸、阅读这一公共渠道，何必。<br>小白 11:01:00</p>
+<p>广播是事件通知的一种没错。但事件通知不止广播这么一种吧？网络请求和响应，反过来就是广播了？<br>iceman 11:02:21</p>
+<p>我是说,事件通知可以用callback,也可以用广播…只不过广播的功能可以更广泛,用于不同页面的,我们目前仅仅是用于当前页面的一些网络事件回传而已…<br>小白 11:02:48</p>
+<p>前提是，如果你有需求。<br>小白 11:03:31</p>
+<p>如果你有需求让发送者不一定是接收者，如果发送接收不一定是一对一关系，那就广播。<br>小白 11:03:51</p>
+<p>而网络请求不符合这个模型。<br>iceman 11:03:57</p>
+<p>嗯.如果可以确定都是一对一关系.那就还是用callback了吧?<br>小白 11:06:23</p>
+<p>理论上广播、消息、总线结构可以做所有事，架构非常灵活。但代价就是，所有成员不管需不需要都得接入总线，这就是成本。总线的结构本身也是成本：比如线程安全、事件驱动等。在复杂模型里这些值得去付出，比如企业级系统里使用JMS。<br>iceman 11:06:26</p>
+<p>嗯,我们之所以有换成callback的原因是:目前的业务和架构在网络请求这个模块上都没有一对多的需求,广播能做的,callback完全能做.<br>有点点小纠结的是:<br>1.广播在别的模块还是有用到,比如确实要一对多的情形,既然这样,何不整成一套呢?总是使用适应性更广的方案,似乎也没错.<br>2.还是那个虚无缥缈的话题,”解耦”的大趋势下…<br>小白 11:10:10</p>
+<p>1，如果需要，那就做。但做出来消息系统可以不包含网络请求和处理，因为网络请求和处理没有这个需求。电脑可以有总线，可以纳入显卡和鼠标这样的极度异构的子系统。但如果显卡渲染单元之间交流都走总线，那就等死吧。。。<br>小白 11:12:03</p>
+<p>2，解耦的目标是可扩展性可维护性，而不是以解得干干净净为目的。干净到变态的极致，那叫过度设计。网上可以搜到用满了23个设计模式的hello world作为模式使用的反例。<br>iceman 11:13:28</p>
+<p>了解了!!可扩展,可维护,那就从callback着手吧.感谢白大神啊.同事一直说要换callback,我还没决定要改,总算能说服自己,开始动手了…<br>小白 11:14:23</p>
+<p>另外，我想起来了，如果是Activities之间传递数据，一个负责发起请求，然后就退到后台或者销毁。然后另一个负责接收处理数据。这种模式确实可以考虑使用总线和消息池。<br>iceman 11:14:58</p>
+<p>嗯.那不属于网络请求嘛.可以再看.情形比较多,就考虑出个方案<br>iceman 11:15:02</p>
+<p>好咯,.干活去咯~<br>小白 11:15:07</p>
+<p>哈哈。<br>小白 11:15:29</p>
+<p>也是网络请求啊。比如说我们公司以前的跳转加载。<br>iceman 11:15:40</p>
+<p>那是坑<br>iceman 11:15:46</p>
+<p>跳转加载并不能增加效率…<br>小白 11:15:51</p>
+<p>为什么？<br>iceman 11:16:11</p>
+<p>在下一个页面的oncreate中开始执行网络请求,并不会慢多少.<br>iceman 11:16:26</p>
+<p>我觉得没有必要为了省这一点点时间,而把架构搞的这么麻烦<br>小白 11:17:00</p>
+<p>主要是。。。你看我们的页面，一个个重的要死，走到oncreate都半天过去了。<br>iceman 11:17:03</p>
+<p>我当初面试的时候说携程的网络请求,说到一个读线程一个写线程,把人家吓尿了…觉得我们好NB<br>iceman 11:17:16</p>
+<p>走到oncreate怎么会半天过去啊<br>iceman 11:17:26</p>
+<p>oncreate那里还没开始页面渲染啊<br>iceman 11:17:38</p>
+<p>基类太重了?<br>小白 11:17:55</p>
+<p>cpu负担，基类，动画。。。各种重。<br>小白 11:18:42</p>
+<p>作用还是有的。但我确实不喜欢使用这么复杂的架构去解决这么小的一个问题。从其他方面优化效果更好。<br>小白 11:18:53</p>
+<p>你们要是不用，那就算了。<br>iceman 11:19:01</p>
+<p>优化一下基类呗..就像当初网络请求的方法重载了10多个一样….哈哈哈,动画嘛.也可以放后面一点<br>iceman 11:19:13</p>
+<p>哈哈..那个得不偿失啊.我们就不用了<br>iceman 11:21:25</p>
+<p>话说我突然想起,那个DialogManager也是一样的道理….小郭把所有界面上需要展示的悬浮控件(单按钮,多按钮,progress,自定义对话框)写到了一起….这个和直接使用某些基类方法,然后传入按钮文字,按钮点击时间监听,优势又在哪里呢?<br>为了可维护性?<br>小白 11:21:40</p>
+<p>蛋。<br>小白 11:21:45</p>
+<p>那是被方法数逼的。<br>iceman 11:21:54</p>
+<p>卧槽…..<br>小白 11:25:41</p>
+<p>哦严格的说，这得分好几个事。<br>1，方法数逼的，不用回调和内隐类，用接口。<br>2，Manager情结，这个好像很多人都有。用对了就算不上错。<br>3，他爱上了builder模式，因为manager集大成了，所以可配置参数太多，所以builder。<br>4，其实正确的姿势是继承、多态和匿名回调。但方法数压力更大。。。<br>iceman 11:26:51</p>
+<p>哈哈哈哈…..方法数…看来在这个压力下,我不能认为携程的都是好的了<br>小白 11:27:52</p>
+<p>所幸这年头这个问题越来越小了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/02/02/python3%E6%93%8D%E4%BD%9Cexcel%E6%96%87%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python3操作excel文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/02/01/%E5%B8%B8%E7%94%A8markdown%E8%AF%AD%E6%B3%95/">
+                        <span class="hidden-mobile">常用markdown语法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

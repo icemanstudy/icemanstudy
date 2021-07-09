@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Never really desperate, only the lost of the soul.">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/01/03/android%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E9%98%B4%E5%BD%B1%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/" target="_self">
+          <img src="/img/post/5.jpg" srcset="/img/loading.gif" lazyload alt="android上实现卡片阴影的正确姿势">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/01/03/android%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E9%98%B4%E5%BD%B1%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/" target="_self">
+          android上实现卡片阴影的正确姿势
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/01/03/android%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E9%98%B4%E5%BD%B1%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/" target="_self">
+          
+          
+            
+          
+          android 4.4适配,你懂的.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-03 18:38" pubdate>
+              2020-01-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019/07/06/android-Q%E9%80%82%E9%85%8D%E7%AC%94%E8%AE%B0/" target="_self">
+          <img src="/img/post/3.jpg" srcset="/img/loading.gif" lazyload alt="android Q适配笔记">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/07/06/android-Q%E9%80%82%E9%85%8D%E7%AC%94%E8%AE%B0/" target="_self">
+          android Q适配笔记
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/07/06/android-Q%E9%80%82%E9%85%8D%E7%AC%94%E8%AE%B0/" target="_self">
+          
+          
+            
+          
+          我们不是面向android Q适配.我们是面向应用市场适配.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-07-06 18:12" pubdate>
+              2019-07-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019/05/21/%E4%B8%80%E6%AC%A1%E5%B4%A9%E6%BA%83%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%B0%83%E6%9F%A5%E8%BF%87%E7%A8%8B/" target="_self">
+          <img src="/img/post/2.jpg" srcset="/img/loading.gif" lazyload alt="一次崩溃事件的调查过程">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/21/%E4%B8%80%E6%AC%A1%E5%B4%A9%E6%BA%83%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%B0%83%E6%9F%A5%E8%BF%87%E7%A8%8B/" target="_self">
+          一次崩溃事件的调查过程
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/21/%E4%B8%80%E6%AC%A1%E5%B4%A9%E6%BA%83%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%B0%83%E6%9F%A5%E8%BF%87%E7%A8%8B/" target="_self">
+          
+          
+            
+          
+          分析问题的思路.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-21 15:41" pubdate>
+              2019-05-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9D%82%E6%8A%80/">杂技</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/08/https%E8%AF%81%E4%B9%A6%E5%BF%BD%E7%95%A5%E6%9C%89%E6%95%88%E6%9C%9F%E6%A0%A1%E9%AA%8C/" target="_self">
+          <img src="/img/post/18.jpg" srcset="/img/loading.gif" lazyload alt="https证书忽略有效期校验">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/08/https%E8%AF%81%E4%B9%A6%E5%BF%BD%E7%95%A5%E6%9C%89%E6%95%88%E6%9C%9F%E6%A0%A1%E9%AA%8C/" target="_self">
+          https证书忽略有效期校验
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/08/https%E8%AF%81%E4%B9%A6%E5%BF%BD%E7%95%A5%E6%9C%89%E6%95%88%E6%9C%9F%E6%A0%A1%E9%AA%8C/" target="_self">
+          
+          
+            
+          
+          如何看待"淘气"的用户修改手机时间导致https全部失效?
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-08 18:28" pubdate>
+              2018-02-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E8%BD%AC%E6%8D%A2%E5%99%A8/" target="_self">
+          <img src="/img/post/15.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-转换器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E8%BD%AC%E6%8D%A2%E5%99%A8/" target="_self">
+          DataBindingLibrary译文-转换器
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E8%BD%AC%E6%8D%A2%E5%99%A8/" target="_self">
+          
+          
+            
+          
+          转换器对象转换当表达式返回一个对象时,将会从自动set,重命名set,自定义set中自动选择set方法,根据set方法的参数类型,强制转换为对应的类型.在用ObservableMaps存放数据时比较方便,比如:
+&lt;TextView
+   android:text=&#x27;@&#123;userMap[&quot;lastName&quot;]&#125;&#x27;
+   android
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 21:28" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE/" target="_self">
+          <img src="/img/post/13.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-属性设置">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE/" target="_self">
+          DataBindingLibrary译文-属性设置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE/" target="_self">
+          
+          
+            
+          
+          属性设置当一个被绑定属性变更时,绑定类会自动调用通过表达式和view关联起来的set方法.databind框架通常会自动决定调用哪个方法去设置对应的值.
+自动的set方法对应每个属性,databind会尝试寻找这个属性对应的set方法.该方法和命名空间无关,仅仅和属性名本身有关.例如,TextView通过android:text属性指定的表达式,将会寻找名为setText(String)的方法.如
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 21:19" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E7%94%9F%E6%88%90%E7%BB%91%E5%AE%9A/" target="_self">
+          <img src="/img/post/11.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-生成绑定">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E7%94%9F%E6%88%90%E7%BB%91%E5%AE%9A/" target="_self">
+          DataBindingLibrary译文-生成绑定
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E7%94%9F%E6%88%90%E7%BB%91%E5%AE%9A/" target="_self">
+          
+          
+            
+          
+          生成绑定自动生成的绑定类将layout中定义的变量和view关联起来.根据前面的讨论,绑定类的名字和所在的包名是可以定制的.共同点是:所有的绑定类都继承于ViewDataBinding.
+生成绑定关系应该在解析完布局之后马上创建,防止后续的代码影响到布局结构.这里有几种方法可以对一个layout建立绑定关系,最常用的是使用绑定类的静态方法.inflate方法可以同时完成view层级解析和绑定关系建
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 21:16" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" target="_self">
+          <img src="/img/post/14.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-数据模型">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" target="_self">
+          DataBindingLibrary译文-数据模型
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" target="_self">
+          
+          
+            
+          
+          数据模型任意POJO(简单java对象)都可以用于数据绑定.但是默认情况下,修改一个POJO的属性,并不会引发UI更新.databind真正的威力在于可以给予数据模型在数据发生变化时请求UI更新的能力.这里有3中不同的数据变更通知机制.Observable objects, observable fields, 和observable collections.
+Observable objects
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 21:11" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-layout%E7%BC%96%E7%A0%81/" target="_self">
+          <img src="/img/post/9.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-layout编码">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-layout%E7%BC%96%E7%A0%81/" target="_self">
+          DataBindingLibrary译文-layout编码
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-layout%E7%BC%96%E7%A0%81/" target="_self">
+          
+          
+            
+          
+          Layout编码介绍Import你可以在data元素内部使用任意数量的import元素.类似于java中的import,这样可以很方便的导入其他的类.
+import type=&quot;android.view.View&quot;
+
+现在你可以在bind表达式中使用View的属性了.
+&lt;TextView
+   android:text=&quot;@&#123;user.lastName
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 18:57" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" target="_self">
+          <img src="/img/post/12.jpg" srcset="/img/loading.gif" lazyload alt="DataBindingLibrary译文-事件处理">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" target="_self">
+          DataBindingLibrary译文-事件处理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" target="_self">
+          
+          
+            
+          
+          事件处理databind机制允许你使用表达式来处理来自于view的事件,比如onclick.事件的名称和实际对应的listener方法名有关,有时间会有一些小变更.例如onLongClickListener有一个方法onLongClick,所以对应的事件为android:onLongClick.这里有两种方式去处理一个事件:方法引用:通过表达式,你可以将其指向与之参数匹配的listener方法.当
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-03 18:48" pubdate>
+              2018-02-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

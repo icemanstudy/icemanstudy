@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>DataBindingLibrary译文-事件处理 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DataBindingLibrary译文-事件处理">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-02-03 18:48" pubdate>
+        2018年2月3日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DataBindingLibrary译文-事件处理</h1>
+            
+            <div class="markdown-body">
+              <p><strong>事件处理</strong><br>databind机制允许你使用表达式来处理来自于view的事件,比如onclick.<br>事件的名称和实际对应的listener方法名有关,有时间会有一些小变更.<br>例如onLongClickListener有一个方法onLongClick,所以对应的事件为android:onLongClick.这里有两种方式去处理一个事件:<br>方法引用:通过表达式,你可以将其指向与之参数匹配的listener方法.当一个表达式被确认指向某个方法的时候,databind框架会在一个listener中将方法引用和对应的data对象绑定起来,然后将这个listener设置给对应的view.如果表达式设置为null,databind框架将不会创建listener,并且使用空的listener来代替.<br><em>译者注:这可能影响到某些view的按下效果</em><br>listener绑定:你可以使用lambda表达式来进行事件分发,databind框架将总是会创建listener并设置给view,当事件发生的时候,listener会使用这个lambda表达式.</p>
+<p><strong>方法引用</strong><br>事件可以直接指向某个方法,类似于android:onclick可以定义为activity的一个方法.<br>但是与view的onclick方法相比最主要的优势是,databind中这种表达式会在编译期间进行处理,所以如果对应的方法不存在或者参数不匹配,会导致编译过程中报错.</p>
+<blockquote>
+<p>方法引用和监听器绑定最主要的区别在于,实际的监听器实现是在data模型被绑定的时候,而并非是事件被触发的时候,如果你希望当事件发生的时候就能执行对应的代码,你应该使用listener绑定</p>
+</blockquote>
+<p>下面是一个普通的bind表达式示例,使用方法名称当做value值即可.假如你的data模型有这样一个方法:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyHandlers</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClickFriend</span><span class="hljs-params">(View view)</span> </span>&#123; ... &#125;
+&#125;</code></pre>
+
+
+<p>然后绑定表达式可以这样指派某个view的点击事件:</p>
+<pre><code class="hljs dust"><span class="xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span>
+<span class="xml">   <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;handlers&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.example.Handlers&quot;</span>/&gt;</span></span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.example.User&quot;</span>/&gt;</span></span>
+<span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">   &lt;LinearLayout</span>
+<span class="xml">       android:orientation=&quot;vertical&quot;</span>
+<span class="xml">       android:layout_width=&quot;match_parent&quot;</span>
+<span class="xml">       android:layout_height=&quot;match_parent&quot;&gt;</span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span></span>
+<span class="xml">           android:layout_height=&quot;wrap_content&quot;</span>
+<span class="xml">           android:text=&quot;@</span><span class="hljs-template-variable">&#123;user.firstName&#125;</span><span class="xml">&quot;</span>
+<span class="xml">           android:onClick=&quot;@</span><span class="hljs-template-variable">&#123;handlers::onClickFriend&#125;</span><span class="xml">&quot;/&gt;</span>
+<span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span></span></code></pre>
+
+<p><strong>注意:表达式中定义的方法的参数必须保持和实际的listener中方法参数完全一样.</strong></p>
+<p><strong>listener绑定</strong></p>
+<p>listener绑定用来设置当事件发生时执行某些方法.跟方法引用有点像,但是它允许你使用更加随意的bind表达式.这个特性需要android gradle插件2.0版本以上.</p>
+<p>在方法引用中,方法参数必须和listener的方法参数完全一样.但是在listener绑定中,你只需要保证返回值和listener方法一样即可(除非是void).例如,你可以定义这样一个类:</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Presenter</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSaveClick</span><span class="hljs-params">(Task task)</span></span>&#123;&#125;
+&#125;</code></pre>
+
+<p>然后你可以这样绑定一个点击事件</p>
+<pre><code class="hljs dust"><span class="xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span>
+<span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;task&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.android.example.Task&quot;</span> /&gt;</span></span>
+<span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;presenter&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.android.example.Presenter&quot;</span> /&gt;</span></span>
+<span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span> <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span>&gt;</span></span>
+<span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span> <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span></span>
+<span class="xml">          android:onClick=&quot;@</span><span class="hljs-template-variable">&#123;() -&gt; presenter.onSaveClick(task)&#125;</span><span class="xml">&quot; /&gt;</span>
+<span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span></span></code></pre>
+
+<p>listener被lambda表达式代替了,当你在表达式中使用这样的callback型语句时,databind框架会自动帮你生成对应的listener并且注册到事件上,当事件被触发时,对应的表达式将被执行.当表达式被执行的时候是线程安全的.</p>
+<p>注意上面的例子,我们并没有像onclick(View)这样为onSaveClick方法定义一个View参数.listener绑定提供了两个选择用于参数定义:你可以忽略所有参数,或者列出所有参数.如果你列出了所有参数,你可以在表达式中使用它.比如上面的表达式可以写成这样:</p>
+<pre><code class="hljs avrasm"><span class="hljs-symbol">android:</span>onClick=<span class="hljs-string">&quot;@&#123;(view) -&gt; presenter.onSaveClick(task)&#125;&quot;</span></code></pre>
+
+<p>或者如果你想在表达式中使用这个参数,你可以这么写</p>
+<pre><code class="hljs avrasm"><span class="hljs-symbol">android:</span>onClick=<span class="hljs-string">&quot;@&#123;(theView) -&gt; presenter.onSaveClick(theView, task)&#125;&quot;</span></code></pre>
+
+<p>你可以使用不止一个参数的lambda表达式</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Presenter</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCompletedChanged</span><span class="hljs-params">(Task task, <span class="hljs-keyword">boolean</span> completed)</span></span>&#123;&#125;
+&#125;</code></pre>
+<pre><code class="hljs routeros">&lt;CheckBox android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span> android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>
+        android:<span class="hljs-attribute">onCheckedChanged</span>=<span class="hljs-string">&quot;@&#123;(cb, isChecked) -&gt; presenter.completeChanged(task, isChecked)&#125;&quot;</span> /&gt;</code></pre>
+
+<p>如果事件对应方法返回类型不是void,你的表达式必须返回跟它一样的类型.例如,如果你想监听长按事件.你的表达式必须返回boolean类型的结果.</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Presenter</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onLongClick</span><span class="hljs-params">(View view, Task task)</span></span>&#123;&#125;
+&#125;</code></pre>
+<pre><code class="hljs avrasm"><span class="hljs-symbol">android:</span>onLongClick=<span class="hljs-string">&quot;@&#123;(theView) -&gt; presenter.onLongClick(theView, task)&#125;&quot;</span></code></pre>
+
+<p>如果表达式遇到了空的实现,databind会返回默认的java基本类型对应的数据.引用会返回null,int会返回0,boolean会返回false.<br>如果你使用了条件判断,你可以使用void作为一个元素.</p>
+<p><strong>避免使用复杂的listener</strong></p>
+<p>listener表达式具有很强大的功能,可以让你的代码变得非常易读.但是从另一方面来说,复杂的表达式可能会让你的layout文件变得可读性和可维护性较差.你应该尽可能简单的将数据从UI传递到定义的方法中来,然后在方法中再去实现复杂的业务逻辑.<br>为了防止冲突,有些点击事件需要除了android:onClick以外的名字来定义,比如下面这些方法</p>
+<p>Class           Listener                                           Setter Attribute<br>SearchView      setOnSearchClickListener(View.OnClickListener)     android:onSearchClick<br>ZoomControls    setOnZoomInClickListener(View.OnClickListener)     android:onZoomIn<br>ZoomControls    setOnZoomOutClickListener(View.OnClickListener)    android:onZoomOut</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-layout%E7%BC%96%E7%A0%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DataBindingLibrary译文-layout编码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E5%89%8D%E8%A8%80-%E7%9B%AE%E5%BD%95/">
+                        <span class="hidden-mobile">DataBindingLibrary译文-前言+目录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

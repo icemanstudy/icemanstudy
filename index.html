@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Never really desperate, only the lost of the soul.">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/09/iframe%E4%B8%AD%E5%85%B3%E4%BA%8Ecookie%E7%9A%84%E6%93%8D%E4%BD%9C/" target="_self">
+          <img src="/img/post/2.jpg" srcset="/img/loading.gif" lazyload alt="iframe中关于cookie的操作">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/09/iframe%E4%B8%AD%E5%85%B3%E4%BA%8Ecookie%E7%9A%84%E6%93%8D%E4%BD%9C/" target="_self">
+          iframe中关于cookie的操作
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/09/iframe%E4%B8%AD%E5%85%B3%E4%BA%8Ecookie%E7%9A%84%E6%93%8D%E4%BD%9C/" target="_self">
+          
+          
+            
+          
+          iframe中使用cookie.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-09 09:57" pubdate>
+              2021-07-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/web/">web</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/12/03/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%BC%94%E5%8F%98%E6%BC%AB%E8%B0%88/" target="_self">
+          <img src="https://i.loli.net/2020/12/14/izHRXUECfL957lB.png" srcset="/img/loading.gif" lazyload alt="移动端跨平台技术演变漫谈">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/03/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%BC%94%E5%8F%98%E6%BC%AB%E8%B0%88/" target="_self">
+          移动端跨平台技术演变漫谈
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/03/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%BC%94%E5%8F%98%E6%BC%AB%E8%B0%88/" target="_self">
+          
+          
+            
+          
+          移动端的跨平台技术如今已经演变至第三代,究竟我们该如何选择?
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-03 10:44" pubdate>
+              2020-12-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%B7%A8%E5%B9%B3%E5%8F%B0/">跨平台</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/12/02/%E8%81%8A%E8%81%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E8%89%B2/" target="_self">
+          <img src="https://i.loli.net/2020/12/09/9hEPma4DCutpZcb.png" srcset="/img/loading.gif" lazyload alt="聊聊架构师角色">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/02/%E8%81%8A%E8%81%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E8%89%B2/" target="_self">
+          聊聊架构师角色
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/02/%E8%81%8A%E8%81%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E8%89%B2/" target="_self">
+          
+          
+            
+          
+          高级程序员,架构师,技术专家,企业可以混淆,自己不可以
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-02 14:23" pubdate>
+              2020-12-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%97%B2%E8%81%8A/">闲聊</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/12/01/gitee-hexo-smms%E6%89%93%E9%80%A0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_self">
+          <img src="https://i.loli.net/2020/12/01/ily1SYcpaZsqbHL.png" srcset="/img/loading.gif" lazyload alt="gitee+hexo+smms打造免费个人博客">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/01/gitee-hexo-smms%E6%89%93%E9%80%A0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_self">
+          gitee+hexo+smms打造免费个人博客
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/01/gitee-hexo-smms%E6%89%93%E9%80%A0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_self">
+          
+          
+            
+          
+          程序员blog白嫖指南
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-01 16:41" pubdate>
+              2020-12-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%97%B2%E8%81%8A/">闲聊</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/18/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%E7%9A%84%E9%80%86%E5%90%91%E8%A7%A3%E6%9E%90/" target="_self">
+          <img src="https://i.loli.net/2020/12/04/ILBJtzY3jkFbM1a.png" srcset="/img/loading.gif" lazyload alt="面向对象基本原则的逆向解析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/18/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%E7%9A%84%E9%80%86%E5%90%91%E8%A7%A3%E6%9E%90/" target="_self">
+          面向对象基本原则的逆向解析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/18/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%E7%9A%84%E9%80%86%E5%90%91%E8%A7%A3%E6%9E%90/" target="_self">
+          
+          
+            
+          
+          知其然,更知其所以然.从第一个class开始,领会面向对象基本原则的产生过程.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-18 11:57" pubdate>
+              2020-09-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/17/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E7%9C%8B%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1/" target="_self">
+          <img src="/img/post/6.jpg" srcset="/img/loading.gif" lazyload alt="一篇文章看懂什么是微服务">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/17/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E7%9C%8B%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1/" target="_self">
+          一篇文章看懂什么是微服务
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/17/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E7%9C%8B%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1/" target="_self">
+          
+          
+            
+          
+          通俗易懂的微服务介绍.有点软件开发基础都能懂.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-17 16:13" pubdate>
+              2020-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9D%82%E6%8A%80/">杂技</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" target="_self">
+          <img src="/img/post/8.jpg" srcset="/img/loading.gif" lazyload alt="移动端动态渲染技术实例解析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" target="_self">
+          移动端动态渲染技术实例解析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" target="_self">
+          
+          
+            
+          
+          一份完整的动态渲染框架解析.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-01 20:16" pubdate>
+              2020-09-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/08/14/AS%E6%89%93%E5%BC%80Flutter%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9Fandroid%E5%B7%A5%E7%A8%8B%E6%A0%87%E7%BA%A2%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          <img src="/img/post/7.jpg" srcset="/img/loading.gif" lazyload alt="AS打开Flutter项目,原生android工程标红的问题">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/08/14/AS%E6%89%93%E5%BC%80Flutter%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9Fandroid%E5%B7%A5%E7%A8%8B%E6%A0%87%E7%BA%A2%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          AS打开Flutter项目,原生android工程标红的问题
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/14/AS%E6%89%93%E5%BC%80Flutter%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9Fandroid%E5%B7%A5%E7%A8%8B%E6%A0%87%E7%BA%A2%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          
+          
+            
+          
+          Flutter混合开发初尝试.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-14 17:54" pubdate>
+              2020-08-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%B7%A8%E5%B9%B3%E5%8F%B0/">跨平台</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/08/08/Flutter%E5%8A%A8%E7%94%BB-Animation/" target="_self">
+          <img src="/img/post/16.jpg" srcset="/img/loading.gif" lazyload alt="Flutter动画-Animation">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/08/08/Flutter%E5%8A%A8%E7%94%BB-Animation/" target="_self">
+          Flutter动画-Animation
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/08/Flutter%E5%8A%A8%E7%94%BB-Animation/" target="_self">
+          
+          
+            
+          
+          Flutter动画执行,其实挺low的.有点像android的属性动画.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-08 10:23" pubdate>
+              2020-08-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%B7%A8%E5%B9%B3%E5%8F%B0/">跨平台</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/01/06/%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0UI%E5%8A%A8%E6%80%81%E5%8C%96%E6%96%B9%E6%A1%88-yoga/" target="_self">
+          <img src="/img/post/5.jpg" srcset="/img/loading.gif" lazyload alt="轻量级的跨平台UI动态化方案-yoga">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/01/06/%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0UI%E5%8A%A8%E6%80%81%E5%8C%96%E6%96%B9%E6%A1%88-yoga/" target="_self">
+          轻量级的跨平台UI动态化方案-yoga
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/01/06/%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0UI%E5%8A%A8%E6%80%81%E5%8C%96%E6%96%B9%E6%A1%88-yoga/" target="_self">
+          
+          
+            
+          
+          UI跨平台渲染,满足90%的企业需要.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-06 17:52" pubdate>
+              2020-01-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%B7%A8%E5%B9%B3%E5%8F%B0/">跨平台</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

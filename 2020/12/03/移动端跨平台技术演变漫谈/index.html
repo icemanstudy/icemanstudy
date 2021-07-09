@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="移动端的跨平台技术如今已经演变至第三代,究竟我们该如何选择?">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>移动端跨平台技术演变漫谈 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="移动端跨平台技术演变漫谈">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-03 10:44" pubdate>
+        2020年12月3日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">移动端跨平台技术演变漫谈</h1>
+            
+            <div class="markdown-body">
+              <p>作为原生前端的两大巨头,andorid和ios已经共存了十年,在可见的未来,还会一直存在下去.这给了所谓”跨平台”技术巨大的成长空间,毕竟成本分分钟降低一半,哪家公司不喜欢呢对不对?</p>
+<p>作者2010年入行移动端开发,经历了历代跨平台技术的演进,总结下来,近十年的技术演变可分为三代.下面依次说说.</p>
+<h3 id="第一代-web方式"><a href="#第一代-web方式" class="headerlink" title="第一代:web方式"></a>第一代:web方式</h3><p>其实这个严格上来说算不得什么跨平台,仅仅是依赖android和ios的framework中都具备的webview相关组件来实现的.</p>
+<p>Webview也好,UIWebview也好,既然你都支持html+css+js那一套.那我就用这一套写呗,写完顺便还能发布h5版本.</p>
+<p>然而web页面毕竟运行在web容器上,移动设备的很多特性都没有办法使用,例如摄像头,震动,打电话等等,又或者某些性能要求高的功能必须用原生方式做,因此当时的很多app都是原生和h5混着用,最不济也是要套个原生壳子,俗称混合开发.</p>
+<p><strong>h5页面和原生页面的通信,h5页面和设备原生功能的交互,成了混合开发最核心的问题.</strong></p>
+<p>在此基础上,衍生了很多成熟的跨平台框架,比如<a target="_blank" rel="noopener" href="https://phonegap.com/">PhoneGap</a>,现在应该叫做Cordova了.</p>
+<blockquote>
+<p>PhoneGap 被 Adobe 收购了,但是剥离了核心代码贡献给 Apache Software Foundation,Apache 将这个项目命名为Cordova ,也就是说 PhoneGap 是基于 Cordova 的.</p>
+</blockquote>
+<p>PhoneGap是什么?是一个采用HTML,CSS和JavaScript的技术,创建移动跨平台移动应用程序的快速开发平台.简而言之就是一个能加载h5页面的壳子,但这个壳子与原生平台的webview组件不同的是,它帮你做了很多的原生功能交互,包括但不限于以下:</p>
+<ul>
+<li>加速计</li>
+<li>摄像头</li>
+<li>罗盘</li>
+<li>通讯录</li>
+<li>文档</li>
+<li>地理定位</li>
+<li>媒体</li>
+<li>网络</li>
+<li>通知(警告、声音和振动)</li>
+<li>存储</li>
+</ul>
+<p>如果有更多的需求,还可以自己开发插件.</p>
+<p>然而这种方式终究还是走的web渲染方式,由于其运行机制和代码冗余的原因,在加载体验和交互体验上比不过原生,因此当时也仅作为一些活动页面的展现方式,来弥补原生页面修改不够灵活的缺点.</p>
+<h3 id="第二代-RN-Weex方式"><a href="#第二代-RN-Weex方式" class="headerlink" title="第二代:RN/Weex方式."></a>第二代:RN/Weex方式.</h3><p>既然web渲染机制存在性能上的问题,那能不能继续使用原生渲染方式呢?</p>
+<p>基于第一代跨平台技术存在的缺点,Fackbook想到了一种名为<a target="_blank" rel="noopener" href="https://reactnative.cn/">ReactNative</a>的解决方案:我用js写页面,但是在不同平台上转换成对应的原生控件.</p>
+<p><img src="https://i.loli.net/2020/12/11/hcWKSvHk16gyeFX.png" srcset="/img/loading.gif" lazyload></p>
+<p>不得不说这种想法真的很棒,既照顾了开发效率,又满足了性能要求,仅仅需要为两个端各开发一套转化框架就行了,这个工作是一次性的!</p>
+<p>自2015年发布以来,Facebook不遗余力的投入对ReactNative的建设.逐渐有了越来越多的公司开始采用这一方案.随后2016年阿里也发布了Weex框架,开始有了一批阿里系的使用者.</p>
+<p>看似很完美的方案,但截至2020年,已经有越来越多的公司放弃RN,回归原生技术栈.原因是RN的一些缺点:</p>
+<ul>
+<li>无法完全跨平台,简而言之,只要遇到同一类型控件在两个平台有差异的就要区别对待.</li>
+<li>性能问题一直存在.比如臭名昭著的android平台列表item内存释放.</li>
+<li>扩展性依然不够,相对于原生控件的各种api,支持得不够彻底.</li>
+<li>用作页面级开发时,回退栈和tab处理依然不够完美.比如android中的启动模式.</li>
+</ul>
+<h3 id="第三代-Flutter方式"><a href="#第三代-Flutter方式" class="headerlink" title="第三代:Flutter方式"></a>第三代:Flutter方式</h3><p>一套代码,运行时转化成多个端的原生控件,机制上行得通,但是里面的坑已经被大家摸得差不多了.在这个过程中,有人放弃,有人坚持,不可否认的是:这依然是一个不完美的方案.</p>
+<p>2018年12月,Google正式发布Flutter.这个就nb了,直接操作底层的2D绘图引擎进行绘制.</p>
+<blockquote>
+<p>什么控件转换,不存在的,我直接画出来!</p>
+</blockquote>
+<p>Android系统上默认的2d绘图使用的是skia引擎.Flutter使用dart语言来写界面,最后直接操作skia引擎进行绘制,完全绕过原生自带的那一套ViewGroup机制,运行起来就是一个大大的View.</p>
+<p>ios怎么办呢?简单粗暴,直接打包一个skia引擎上去…<em>(所以目前ios上的安装包大小和性能都被人吐槽.)</em></p>
+<p>直接操作渲染引擎,从根本入手,在我看来这是当之无愧的第三代跨平台技术了.时至今日,Flutter版本在不断的优化和bug修复中已经更新到了1.22,也有了一些大厂的背书,最典型是闲鱼团队(<em>据说某个开发人员在Flutter上提交的PR比Flutter自身的开发人员还多.</em>).近几年的各种开发者大会,移动端会场也是动辄Flutter.</p>
+<p>除了Flutter for ios,还有<a target="_blank" rel="noopener" href="https://flutter.cn/web">Flutter for web</a>,主要基于HTML+CSS+Canvas的方式,实现传统web页的展示.</p>
+<blockquote>
+<p>一切看起来都在向好的方向发展,在这个看起来大一统的技术下,整个大前端终于要统一了么?</p>
+</blockquote>
+<h3 id="泼冷水"><a href="#泼冷水" class="headerlink" title="泼冷水"></a>泼冷水</h3><h4 id="1-Flutter并不是什么高科技-类似的理念在游戏开发中已经有了"><a href="#1-Flutter并不是什么高科技-类似的理念在游戏开发中已经有了" class="headerlink" title="1.Flutter并不是什么高科技.类似的理念在游戏开发中已经有了."></a>1.Flutter并不是什么高科技.类似的理念在游戏开发中已经有了.</h4><p>游戏开发用什么技术?3d用Cocos2d-x,3d用Unity3D.为什么一套技术能在android和ios上都跑起来呢?无非就是底层用的都是<strong>OpenGL ES</strong>.</p>
+<blockquote>
+<p>OpenGL ES（OpenGL for Embedded Systems）是三维图形应用程序接口OpenGL的子集，针对手机、PDA和游戏主机等嵌入式设备而设计。</p>
+</blockquote>
+<p>Android 支持多版 OpenGL ES API：</p>
+<ul>
+<li>OpenGL ES 1.0 和 1.1 - 此 API 规范受 Android 1.0 及更高版本的支持.</li>
+<li>OpenGL ES 2.0 - 此 API 规范受 Android 2.2（API 级别 8）及更高版本的支持.</li>
+<li>OpenGL ES 3.0 - 此 API 规范受 Android 4.3（API 级别 18）及更高版本的支持.</li>
+<li>OpenGL ES 3.1 - 此 API 规范受 Android 5.0（API 级别 21）及更高版本的支持.</li>
+</ul>
+<p>ios中的OpenGL ES框架则提供了OpenGL ES规范的1.1、2.0和3.0版本的实现.</p>
+<p>是不是很熟悉?同样是利用手机内置的渲染引擎,google非常机智的使用dart framework做了一层封装,对接android上自带的skia.</p>
+<p>也许dart framework提供了更丰富的api,对上层开发者来说更加友好,也许dart语法比c++写起来更舒服.甚至skia在绘制2d图像上性能比opengl更好.但无论如何,这种思想是一样的:放弃各自平台的framework api,直接绘制.</p>
+<h4 id="2-Dart语法需要重新学习-且缩进层级太深-可读性不佳"><a href="#2-Dart语法需要重新学习-且缩进层级太深-可读性不佳" class="headerlink" title="2.Dart语法需要重新学习,且缩进层级太深,可读性不佳."></a>2.Dart语法需要重新学习,且缩进层级太深,可读性不佳.</h4><p>Dart作为一种新兴语言,综合了java,js,python等各种语言的优点.是好是坏暂不评价,但是毫无疑问:是有一些上手门槛的.</p>
+<p><img src="https://i.loli.net/2020/12/14/aIzGqitwmbAjKWR.png" srcset="/img/loading.gif" lazyload></p>
+<p>在Flutter中,UI界面不再使用xml或者xib方式,而是使用Dart语言来书写.然而页面是有层级的,Dart中如何展示层级?</p>
+<blockquote>
+<p>使用缩进.</p>
+</blockquote>
+<p>用缩进来控制代码格式,并不新鲜,例如python.但是一旦页面层级太多…</p>
+<p>先感受一下吧,这是一个非常简单的页面,仅显示了一个多选框和一个文本:</p>
+<p><img src="https://i.loli.net/2020/12/14/4apvWZCfjs739n2.png" srcset="/img/loading.gif" lazyload></p>
+<p>虽然可以通过各种控件封装来降低单个代码中的嵌套层数.但界面和业务逻辑混杂在一起仍然无法避免.</p>
+<blockquote>
+<p>StateFulWidget很有效的实现MVVM思想,解决了性能问题,但无法解决语法层面上的代码耦合.</p>
+</blockquote>
+<h4 id="3-在android以外的平台上-没有太多优势"><a href="#3-在android以外的平台上-没有太多优势" class="headerlink" title="3.在android以外的平台上,没有太多优势."></a>3.在android以外的平台上,没有太多优势.</h4><p>除了android自带skia,可以无缝接入Flutter,在web上需要调用canvas进行绘制,存在兼容性问题,在ios上则要将整个skia打包,将面对Apple应用商店对于安装包大小的限制.</p>
+<p>目前据我所知,在ios平台上试水flutter的工程大大低于android平台,web上则几乎没有.<br>如果只在一个平台上使用flutter,那所谓的跨平台还有何意义?</p>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>最终,很多公司最终还是选择了原生+h5的方式.毕竟老技术已知优缺点,经得起考验.<br>在此基础上诞生了各种各样的<strong>小程序</strong>,同时对于web容器的深度技术挖掘也一直在进行中.</p>
+<p>同时基于第二代技术的轻量化方案也慢慢出现在大众的视野:</p>
+<blockquote>
+<p>使用内部统一描述语言对页面进行描述,由各平台转化成原生控件,整个解析和渲染方案按照公司内部约定执行,慢慢扩展新功能.</p>
+</blockquote>
+<p>可以参考另一篇文章:<a href="https://icemanbin.gitee.io/2020/09/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">动态渲染技术</a>.</p>
+<p>总而言之:跨平台技术还有很长的路要走,技术终究是实现业务发展的平台,没有优劣之分,慢慢观望吧.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%B7%A8%E5%B9%B3%E5%8F%B0/">跨平台</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/09/iframe%E4%B8%AD%E5%85%B3%E4%BA%8Ecookie%E7%9A%84%E6%93%8D%E4%BD%9C/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">iframe中关于cookie的操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/02/%E8%81%8A%E8%81%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E8%89%B2/">
+                        <span class="hidden-mobile">聊聊架构师角色</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

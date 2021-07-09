@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一份完整的动态渲染框架解析.">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>移动端动态渲染技术实例解析 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="移动端动态渲染技术实例解析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-01 20:16" pubdate>
+        2020年9月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">移动端动态渲染技术实例解析</h1>
+            
+            <div class="markdown-body">
+              <h2 id="动态渲染库简介"><a href="#动态渲染库简介" class="headerlink" title="动态渲染库简介"></a>动态渲染库简介</h2><p>移动端开发中,对于信息流展示页面,通常对动态性有较高的要求,本地预置模板+接口下发动态组合的方式虽然从某种程度上做到了动态化,但新增样式时依然不可避免需要发版.</p>
+<p>本例中通过自定义页面描述语法,并将其下发至客户端,由客户端实时生成布局并渲染,来实现UI级别的动态化.</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><h4 id="将按照Flex规范定义的页面描述文件-转化成对应的原生视图-同时根据其配置信息-从外层数据中查找对应内容进行展示"><a href="#将按照Flex规范定义的页面描述文件-转化成对应的原生视图-同时根据其配置信息-从外层数据中查找对应内容进行展示" class="headerlink" title="将按照Flex规范定义的页面描述文件,转化成对应的原生视图,同时根据其配置信息,从外层数据中查找对应内容进行展示."></a>将按照Flex规范定义的页面描述文件,转化成对应的原生视图,同时根据其配置信息,从外层数据中查找对应内容进行展示.</h4><p><img src="https://i.loli.net/2020/09/02/c9QpVmlKJxuIYjq.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://i.loli.net/2020/09/02/tZydJPTYxwicmGF.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="核心流程详解"><a href="#核心流程详解" class="headerlink" title="核心流程详解"></a>核心流程详解</h2><h3 id="DSL解析"><a href="#DSL解析" class="headerlink" title="DSL解析"></a>DSL解析</h3><p>接口下发的DSL数据示例<br><img src="https://i.loli.net/2020/09/02/tfIUKdhXvmknbyV.png" srcset="/img/loading.gif" lazyload><br>其中样式,事件,动画的解析,由一个入口XML解析器来分发:</p>
+<pre><code class="hljs java">    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startElement</span><span class="hljs-params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="hljs-keyword">throws</span> SAXException </span>&#123;
+        <span class="hljs-keyword">if</span> (mInnernalHandler == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">switch</span> (localName) &#123;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Action&quot;</span>:
+                    mInnernalHandler = <span class="hljs-keyword">new</span> ActionXmlHandler();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Animation&quot;</span>:<span class="hljs-comment">//动画还未启用,暂时注释.</span>
+<span class="hljs-comment">//                    mInnernalHandler = new AnimationXmlHandler();</span>
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:
+                    mInnernalHandler = <span class="hljs-keyword">new</span> DynamicViewXmlHandler();
+                    <span class="hljs-keyword">break</span>;
+            &#125;
+            <span class="hljs-keyword">if</span> (mInnernalHandler != <span class="hljs-keyword">null</span>) &#123;
+                mInnernalHandler.startElement(uri, localName, qName, attributes);
+            &#125;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            mInnernalHandler.startElement(uri, localName, qName, attributes);
+        &#125;
+    &#125;</code></pre>
+
+
+<p><img src="https://i.loli.net/2020/09/02/iM8jbFhplPLSE47.png" srcset="/img/loading.gif" lazyload></p>
+<p>入口解析器解析完每一段xml数据,都会返回DslMappingData数据.前端根据数据实际类型进行保存.</p>
+<pre><code class="hljs java">DslMappingData mappingData = XMLParsingMethods.readMixedXmlBySAX(layoutBean.dslXml);
+<span class="hljs-keyword">if</span> (mappingData != <span class="hljs-keyword">null</span>) &#123;
+    <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlActionEntity) &#123;
+        mActionPool.addAction((XmlActionEntity) mappingData);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlAnimationEntity) &#123;
+        mAnimationPool.addAnimation((XmlAnimationEntity) mappingData);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> DynamicViewStyle) &#123;
+        DynamicViewStyle viewStyle = (DynamicViewStyle) mappingData;
+        viewStyle.layoutID = layoutBean.layoutID;
+        viewStyle.ver = layoutBean.ver;
+        <span class="hljs-keyword">if</span> (TextUtils.isEmpty(viewStyle.ver)) &#123;
+            viewStyle.ver = String.valueOf(System.currentTimeMillis());
+        &#125;
+        DynamicViewStyle currentStyle = mLayoutBeanHashMap.get(layoutBean.layoutID);
+        <span class="hljs-keyword">if</span> (currentStyle == <span class="hljs-keyword">null</span> || currentStyle.ver == <span class="hljs-keyword">null</span>) &#123;
+            mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">if</span> (!currentStyle.ver.equals(viewStyle.ver)) &#123;
+                mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+
+
+<h3 id="视图创建"><a href="#视图创建" class="headerlink" title="视图创建"></a>视图创建</h3><p>根据DynamicViewStyle中定义的type,生成对应原生控件,并使用对应装饰器对其进行配置.</p>
+<h5 id="DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程"><a href="#DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程" class="headerlink" title="DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:"></a>DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:</h5><h4 id="1-根据对应type-生成原生控件和其对应装饰器"><a href="#1-根据对应type-生成原生控件和其对应装饰器" class="headerlink" title="1. 根据对应type,生成原生控件和其对应装饰器."></a>1. 根据对应type,生成原生控件和其对应装饰器.</h4><h5 id="生成原生控件"><a href="#生成原生控件" class="headerlink" title="生成原生控件"></a>生成原生控件</h5><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> DynamicViewDecorator <span class="hljs-title">makeSingleView</span><span class="hljs-params">(Activity activity, DynamicViewStyle style)</span> </span>&#123;
+        DynamicViewDecorator viewHolder = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">if</span> (style.type != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">switch</span> (style.type) &#123;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;View&quot;</span>:
+                    viewHolder = <span class="hljs-keyword">new</span> YogaLayoutDecorator(<span class="hljs-keyword">new</span> CustomYogaLayout(activity));
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;CardView&quot;</span>:
+                    viewHolder = <span class="hljs-keyword">new</span> CardViewDecorator(<span class="hljs-keyword">new</span> MgCardView(activity));
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;ListView&quot;</span>:
+                    viewHolder = <span class="hljs-keyword">new</span> ListViewDecorator(<span class="hljs-keyword">new</span> DynamicListView(activity));
+                    <span class="hljs-keyword">break</span>;
+            &#125;
+            <span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;
+                View view = mExtendViewCreater.makeView(activity, style.type);
+                <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;
+                    viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> viewHolder;
+    &#125;</code></pre>
+<h5 id="根据控件类型-使用不同的装饰器进行属性配置"><a href="#根据控件类型-使用不同的装饰器进行属性配置" class="headerlink" title="根据控件类型,使用不同的装饰器进行属性配置"></a>根据控件类型,使用不同的装饰器进行属性配置</h5><p>此处装饰器!=装饰者模式,仅是用于对不同类型的控件,进行特有的动态属性设置.</p>
+<pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 作者：徐斌 &lt;br&gt;</span>
+<span class="hljs-comment"> * 日期：2020 08/03 10:09 &lt;br&gt;</span>
+<span class="hljs-comment"> * 说明：动态渲染控件配置接口,定义了目前动态渲染支持的一些属性.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DslDecorator</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 解析配置的Layout属性</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> bean DynamicViewStyle中的layout</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> parent 父容器.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span></span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 解析配置的Attr属性</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> styleAttr DynamicViewStyle中的attr</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> acitonObject DynamicViewStyle中的action</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> actionPool 外部的Action池子.定义了各种事件.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAttr</span><span class="hljs-params">(Map&lt;String, String&gt; styleAttr, ActionEntity acitonObject, ActionPool actionPool)</span></span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 解析配置的动画属性</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationEntity DynamicViewStyle中的animation部分</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationPool 外部的Animation池子.定义了各种动画.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAnimation</span><span class="hljs-params">(AnimationEntity animationEntity, AnimationPool animationPool)</span></span>;
+&#125;</code></pre>
+
+
+<h4 id="2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例"><a href="#2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例)."></a>2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例).</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span> </span>&#123;
+    YogaNode yogaNode = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">if</span> (parent <span class="hljs-keyword">instanceof</span> YogaLayout) &#123;
+        yogaNode = ((YogaLayout) parent).getYogaNodeForView(itemView);
+    &#125;
+    <span class="hljs-keyword">if</span> (yogaNode != <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">if</span> (bean.alignSelf != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">switch</span> (bean.alignSelf) &#123;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;flex-end&quot;</span>:
+                    yogaNode.setAlignSelf(YogaAlign.FLEX_END);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;center&quot;</span>:
+                    yogaNode.setAlignSelf(YogaAlign.CENTER);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-between&quot;</span>:
+                    yogaNode.setAlignSelf(YogaAlign.SPACE_BETWEEN);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-around&quot;</span>:
+                    yogaNode.setAlignSelf(YogaAlign.SPACE_AROUND);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:
+                    yogaNode.setAlignSelf(YogaAlign.FLEX_START);
+                    <span class="hljs-keyword">break</span>;
+            &#125;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            yogaNode.setAlignSelf(YogaAlign.AUTO);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<h4 id="3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例"><a href="#3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例)."></a>3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例).</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> DynamicValueBinder&lt;T&gt; <span class="hljs-title">onParseAttr</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Map&lt;String, String&gt; styleAttr, <span class="hljs-meta">@Nullable</span> ActionEntity acitonObject, ActionPool actionPool)</span> </span>&#123;
+    ValueStore valueStore;
+    DynamicValueBinder&lt;T&gt; binder = createDynamicValueBinder();
+    <span class="hljs-keyword">if</span> (styleAttr != <span class="hljs-keyword">null</span>) &#123;
+        String alphaStr = styleAttr.get(<span class="hljs-string">&quot;alpha&quot;</span>);
+        <span class="hljs-keyword">if</span> (alphaStr != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">float</span> alphaNum = DynamicUtil.stringToFloat(alphaStr);
+            <span class="hljs-keyword">if</span> (alphaNum != <span class="hljs-number">0</span>) &#123;
+                itemView.setAlpha(alphaNum);
+            &#125;
+        &#125;
+        String visibleStr = styleAttr.get(<span class="hljs-string">&quot;visible&quot;</span>);
+        <span class="hljs-keyword">if</span> (!TextUtils.isEmpty(visibleStr)) &#123;
+            valueStore = <span class="hljs-keyword">new</span> ValueStore(visibleStr);
+            binder.addDataPath(<span class="hljs-string">&quot;visible&quot;</span>, valueStore);
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> binder;
+&#125;</code></pre>
+
+<h4 id="4-为需要动态设置渲染内容的View配置id-用于外部查找"><a href="#4-为需要动态设置渲染内容的View配置id-用于外部查找" class="headerlink" title="4. 为需要动态设置渲染内容的View配置id,用于外部查找."></a>4. 为需要动态设置渲染内容的View配置id,用于外部查找.</h4><pre><code class="hljs java"><span class="hljs-comment">//第四步,设置attr属性,影响该控件显示的内容.</span>
+<span class="hljs-comment">// 如果是普通控件,按照是否有动态数据和是否有事件来决定生成id并加入列表</span>
+<span class="hljs-comment">// 否则直接给生成一个id,然后加入列表</span>
+<span class="hljs-keyword">if</span> (viewHolder <span class="hljs-keyword">instanceof</span> ExtendViewDecorator) &#123;
+    <span class="hljs-keyword">int</span> id = countHelper.getIdAndInCrease();
+    itemView.setId(id);
+    <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span>
+        bindableViewIds.add(id);
+    &#125;
+&#125; <span class="hljs-keyword">else</span> &#123;
+    viewHolder.parseAttr(style.attr, style.action, mActionPool);
+    <span class="hljs-comment">//如果该控件有需要动态设置的属性.设置id,并把id放入公共的id列表中.</span>
+    <span class="hljs-keyword">if</span> (viewHolder.needDynamicBind) &#123;
+        <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> PlayerView) &#123;
+            id = R.id.dsl_tag_playerview;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> BackgroundView) &#123;
+            id = R.id.dsl_tag_backgroundview;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            id = countHelper.getIdAndInCrease();
+        &#125;
+        itemView.setId(id);
+        <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span>
+            bindableViewIds.add(id);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<h4 id="5-为列表型View设置item样式"><a href="#5-为列表型View设置item样式" class="headerlink" title="5. 为列表型View设置item样式."></a>5. 为列表型View设置item样式.</h4><pre><code class="hljs java"><span class="hljs-keyword">if</span> (style.item != <span class="hljs-keyword">null</span> &amp;&amp; itemView <span class="hljs-keyword">instanceof</span> DslListInterface) &#123;
+    ((DslListInterface) itemView).setDynamicStyle(style.item, <span class="hljs-keyword">this</span>);
+&#125;</code></pre>
+<h4 id="6-重复1-5-对其child进行实例化-并构建层次结构"><a href="#6-重复1-5-对其child进行实例化-并构建层次结构" class="headerlink" title="6. 重复1~5,对其child进行实例化,并构建层次结构."></a>6. 重复1~5,对其child进行实例化,并构建层次结构.</h4><pre><code class="hljs java"><span class="hljs-comment">//第七步,如果这是个容器.遍历一下.添加child.</span>
+<span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> ViewGroup &amp;&amp; style.children != <span class="hljs-keyword">null</span>) &#123;
+    <span class="hljs-keyword">for</span> (DynamicViewStyle childBean : style.children) &#123;
+        makeCurrentView(activity, (ViewGroup) itemView, childBean, bindableViewIds, countHelper, connectionHelper);
+    &#125;
+&#125;</code></pre>
+
+<h4 id="7-完成View-View间的绑定关系-目前用于Banner-Indicator"><a href="#7-完成View-View间的绑定关系-目前用于Banner-Indicator" class="headerlink" title="7. 完成View-View间的绑定关系(目前用于Banner-Indicator)."></a>7. 完成View-View间的绑定关系(目前用于Banner-Indicator).</h4><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * view创建完了.来做个绑定吧..可能内部存在啥联动之类的.比如banner和指示器</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">creatConections</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (mConnectionAbleArrayList.size() &gt; <span class="hljs-number">1</span>) &#123;
+        <span class="hljs-keyword">for</span> (ConnectionAble connectionAble : mConnectionAbleArrayList) &#123;
+            <span class="hljs-keyword">for</span> (ConnectionAble connectionAble2 : mConnectionAbleArrayList) &#123;
+                <span class="hljs-keyword">if</span> (connectionAble != connectionAble2) &#123;
+                    connectionAble.onConection(connectionAble2);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    mConnectionAbleArrayList.clear();
+&#125;</code></pre>
+<h5 id="对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程"><a href="#对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程" class="headerlink" title="对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程."></a>对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程.</h5><pre><code class="hljs java"><span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;
+    View view = mExtendViewCreater.generateView(activity, style);
+    <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;
+        viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);
+    &#125;
+&#125;</code></pre>
+
+
+<hr>
+<h3 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h3><p><strong>理论上所有配置在attr中的属性,都支持通过相对路径从数据实体中取值,并设置.</strong></p>
+<blockquote>
+<p>例如attr中配置text:~title,则意味着该控件将外部数据实体看做JsonObject,取其title字段当做文本内容.</p>
+</blockquote>
+<p>在样式描述体中定义控件的某个属性和其取值对应路径,待外层拿到数据实体后,进行实时解析并设置给控件的过程,即<strong>动态绑定</strong>.</p>
+<p>动态绑定定义在ValueBinder接口中.</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DataBinder</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span>&gt; </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 给定view和数据源,尝试用内部的datePathMap进行解析,然后设置给view</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> view 当前view</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data 数据源</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> listIndex 在列表中的index</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rendWithData</span><span class="hljs-params">(T view, JsonObject data, CommBridge commBridge,<span class="hljs-keyword">int</span> listIndex)</span></span>;
+&#125;</code></pre>
+
+
+<p>其主要有两类实现:</p>
+<ul>
+<li>DynamicValueBinder:动态渲染库内部实现,具备保存属性和相对路径映射的能力.</li>
+<li>外部业务层实现类:对应原生控件,根据预置的属性和解析策略,自行实现渲染方法.</li>
+</ul>
+<p>DynamicValueBinder结构图</p>
+<p><img src="https://i.loli.net/2020/09/02/6XfwVW3pZy1QtTo.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="逻辑计算"><a href="#逻辑计算" class="headerlink" title="逻辑计算"></a>逻辑计算</h3><p>属性对应的值以^开头时,意味着不仅需要动态取值,还要进行逻辑运算.</p>
+<p>例如visible:^feedBack and fdTags.count!=0代表当外层数据feedBack值不为空,且fdTags数据对应的列表长度不为0时,visible值为1.</p>
+<p>动态渲染库中集成了简单的逻辑处理流程,目前支持and,or,==,!=,三目运算.</p>
+<p><img src="https://i.loli.net/2020/09/02/YqdFsgxZbnzfW2t.png" srcset="/img/loading.gif" lazyload></p>
+<p>采用类似二叉树概念,将逻辑语句拆解,转化成多个可计算的最小单元,从末端开始计算,最终得到整体计算结果.</p>
+<p><img src="https://i.loli.net/2020/09/02/ZNVxAjgpcDMfI2a.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="事件传递"><a href="#事件传递" class="headerlink" title="事件传递"></a>事件传递</h3><p>当前事件主要有3种</p>
+<ul>
+<li>曝光事件.RenderAction.在渲染时产生.对应rendWithData调用时.</li>
+<li>点击事件.ClickAction.点击时产生.</li>
+<li>列表滑动事件.ChildScrollAction.列表控件的item滑动时产生.</li>
+</ul>
+<p><img src="https://i.loli.net/2020/09/02/FRSOC9mfiQGz537.png" srcset="/img/loading.gif" lazyload></p>
+<p>事件通过rendWithData(T view, JsonObject data, CommBridge commBridge,int listIndex)中的CommBridge对外传递.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>UI级别的动态化由于完全采用平台api实现.在放弃部分灵活性的同时,保证其性能和兼容性,是当前移动端不可或缺的技术之一,其设计思路对于设计真正的跨平台框架也有所帮助.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/17/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E7%9C%8B%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一篇文章看懂什么是微服务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/14/AS%E6%89%93%E5%BC%80Flutter%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9Fandroid%E5%B7%A5%E7%A8%8B%E6%A0%87%E7%BA%A2%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">AS打开Flutter项目,原生android工程标红的问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

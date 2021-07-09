@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>DataBindingLibrary译文-生成绑定 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DataBindingLibrary译文-生成绑定">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-02-03 21:16" pubdate>
+        2018年2月3日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DataBindingLibrary译文-生成绑定</h1>
+            
+            <div class="markdown-body">
+              <h3 id="生成绑定"><a href="#生成绑定" class="headerlink" title="生成绑定"></a>生成绑定</h3><p>自动生成的绑定类将layout中定义的变量和view关联起来.根据前面的讨论,绑定类的名字和所在的包名是可以定制的.共同点是:所有的绑定类都继承于ViewDataBinding.</p>
+<h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>绑定关系应该在解析完布局之后马上创建,防止后续的代码影响到布局结构.这里有几种方法可以对一个layout建立绑定关系,最常用的是使用绑定类的静态方法.inflate方法可以同时完成view层级解析和绑定关系建立.(译者注:相对于反复findviewbyid,这种一次解析完成映射可以节省不少时间)<br>下面是两个简单的绑定示例,</p>
+<pre><code class="hljs java">MyLayoutBinding binding = MyLayoutBinding.inflate(layoutInflater);
+MyLayoutBinding binding = MyLayoutBinding.inflate(layoutInflater, viewGroup, <span class="hljs-keyword">false</span>);</code></pre>
+
+<p>如果你的view已经inflate出来了.仅仅需要绑定.可以这样做:</p>
+<pre><code class="hljs java">MyLayoutBinding binding = MyLayoutBinding.bind(viewRoot);</code></pre>
+
+<p>有时候你可能想写一些工具类方法,即并不知道需要绑定类的类型,你可以使用DataBindingUtils:</p>
+<pre><code class="hljs java">ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater, layoutId,
+    parent, attachToParent);
+ViewDataBinding binding = DataBindingUtil.bindTo(viewRoot, layoutId);</code></pre>
+
+<h4 id="组件id"><a href="#组件id" class="headerlink" title="组件id"></a>组件id</h4><p>针对layout中指定了id的view组件,会对应生成public final的变量.绑定过程解析一次不举文件,找出带有id的组件.这个比多次findViewById要快很多.例如:</p>
+<pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span>
+<span class="xml">   <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.example.User&quot;</span>/&gt;</span></span>
+<span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span></span>
+<span class="xml">   &lt;LinearLayout</span>
+<span class="xml">       android:orientation=&quot;vertical&quot;</span>
+<span class="xml">       android:layout_width=&quot;match_parent&quot;</span>
+<span class="xml">       android:layout_height=&quot;match_parent&quot;&gt;</span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span></span>
+<span class="xml">           android:layout_height=&quot;wrap_content&quot;</span>
+<span class="xml">           android:text=&quot;@</span><span class="hljs-template-variable">&#123;user.firstName&#125;</span><span class="xml">&quot;</span>
+<span class="xml">   android:id=&quot;@+id/firstName&quot;/&gt;</span>
+<span class="xml">       <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span></span>
+<span class="xml">           android:layout_height=&quot;wrap_content&quot;</span>
+<span class="xml">           android:text=&quot;@</span><span class="hljs-template-variable">&#123;user.lastName&#125;</span><span class="xml">&quot;</span>
+<span class="xml">  android:id=&quot;@+id/lastName&quot;/&gt;</span>
+<span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span></span></code></pre>
+
+<p>会在绑定类中生成这两个变量</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> TextView firstName;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> TextView lastName;</code></pre>
+
+<p>不指定id也可以使用databind,但是如果后期需要访问这个view的话,还是需要指定id的.</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>每个变量都会生成get/set方法.</p>
+<pre><code class="hljs lasso">&lt;<span class="hljs-built_in">data</span>&gt;
+    &lt;<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;android.graphics.drawable.Drawable&quot;</span>/&gt;
+    &lt;<span class="hljs-built_in">variable</span> name=<span class="hljs-string">&quot;user&quot;</span>  <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;com.example.User&quot;</span>/&gt;
+    &lt;<span class="hljs-built_in">variable</span> name=<span class="hljs-string">&quot;image&quot;</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;Drawable&quot;</span>/&gt;
+    &lt;<span class="hljs-built_in">variable</span> name=<span class="hljs-string">&quot;note&quot;</span>  <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;String&quot;</span>/&gt;
+&lt;/<span class="hljs-built_in">data</span>&gt;</code></pre>
+
+<p>上面的layout会在bind类中生成以下方法</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> com.example.<span class="hljs-function">User <span class="hljs-title">getUser</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUser</span><span class="hljs-params">(com.example.User user)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Drawable <span class="hljs-title">getImage</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setImage</span><span class="hljs-params">(Drawable image)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> String <span class="hljs-title">getNote</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNote</span><span class="hljs-params">(String note)</span></span>;</code></pre>
+
+<h4 id="ViewStubs"><a href="#ViewStubs" class="headerlink" title="ViewStubs"></a>ViewStubs</h4><p>ViewStubs和普通view有点不同.它们一开始是不可见的,而且并不会解析到view层级中.只有需要显示的时候,才会替换原有的布局,并显示出自身.<br>因为ViewStub最终会从view层级中移除,那么绑定类中对应的属性应该也可以及时回收.<br>但是因为view是final类型的,所以用ViewStubProxy来取代原本的ViewStub,让开发者可以访问这个ViewStub,并且当对应的view显示时,可以访问到那个view.<br>当解析另外一个布局文件的时候,绑定对象也应该和新的布局关联起来.因此,ViewStubProxy需要监听ViewStub的 OnInflateListener回调接口来建立绑定关系.开发者可以在ViewStubProxy上设置一个OnInflateListener ,当绑定建立的时候,开发者可以收到回调函数.<br><em>(译者注:ViewStub用得实在不多,此处没有试验)</em></p>
+<h4 id="绑定进阶"><a href="#绑定进阶" class="headerlink" title="绑定进阶"></a>绑定进阶</h4><p><strong>动态数据模型</strong><br>有时候,并不能知道具体绑定的数据模型.比如在使用RecyclerView.Adapter这样的适配器时,只有在onBindViewHolder中才能知道对应的数据模型.<br>这种情况下,假设adapter的layout中都有一个item变量.这样你可以使用setVarible方法来将数据模型和item绑定在一起.</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(BindingHolder holder, <span class="hljs-keyword">int</span> position)</span> </span>&#123;
+   <span class="hljs-keyword">final</span> T item = mItems.get(position);
+   holder.getBinding().setVariable(BR.item, item);
+   holder.getBinding().executePendingBindings();
+&#125;</code></pre>
+<p><strong>立即刷新</strong><br>当数据模型变化时,绑定关系会在下一个周期中刷新页面,这可能会有一点延迟.如果想要强制刷新,可以使用executePendingBindings)方法.</p>
+<p><strong>后台线程</strong><br>只要数据模型不是一个集合,你就可以在任意子线程中进行修改.databind会通过保存到本地来帮你解决同步问题.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DataBindingLibrary译文-属性设置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/02/03/DataBindingLibrary%E8%AF%91%E6%96%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/">
+                        <span class="hidden-mobile">DataBindingLibrary译文-数据模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
