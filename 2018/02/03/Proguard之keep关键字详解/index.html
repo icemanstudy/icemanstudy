@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      798 字
+      799 字
     </span>
   
 
@@ -253,9 +253,7 @@
 <p>类名定义后面的{;}:大多数情况下为{;}代表keep范围是所有成员,但是如果不写大括号及里面内容的话,keep是不会对成员生效的.仅仅是在某些关键字情况下对类名做keep.<br>实战示例:</p>
 <p>项目中采用了实体类来对应接口返回的json数据.由于使用Gson包做映射,这些实体类的成员变量都是不能混淆的.</p>
 <p>通常采用的方式是:定义一个Unproguard接口.凡是需要保留的类,都继承这个接口.</p>
-<pre><code class="hljs actionscript">-keepclassmembers <span class="hljs-class"><span class="hljs-keyword">class</span> * <span class="hljs-keyword">implements</span> <span class="hljs-title">rst</span>.<span class="hljs-title">framework</span>.<span class="hljs-title">interfaces</span>.<span class="hljs-title">UnProguard</span></span>&#123;
-*;
-&#125;</code></pre>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">-keepclassmembers <span class="hljs-class"><span class="hljs-keyword">class</span> * <span class="hljs-keyword">implements</span> <span class="hljs-title">rst</span>.<span class="hljs-title">framework</span>.<span class="hljs-title">interfaces</span>.<span class="hljs-title">UnProguard</span></span>&#123;<br>*;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>可是实际运行后,发现还是统统被混淆了.经过查询原因,发现UnProguard这个类本身也是需要保留的.</p>
 <p>于是加上一条-keep class rst.framework.interfaces.UnProguard后解决.</p>
 <p>混淆keep关键字解析到此结束.更详细的使用文档请参考官网</p>

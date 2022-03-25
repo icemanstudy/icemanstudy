@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      19
        分钟
     </span>
   
@@ -233,216 +233,20 @@
 </ul>
 <p>多方尝试无果之后,决定自己绘制阴影.</p>
 <p><strong>由于阴影实际上绘制在容器以外,以下代码有一个要求:其父容器必须设置android:clipChildren=”false”</strong></p>
-<h4 id="首先为了方便使用-增加一个自定义容器-继承自FrameLayout即可"><a href="#首先为了方便使用-增加一个自定义容器-继承自FrameLayout即可" class="headerlink" title="首先为了方便使用,增加一个自定义容器,继承自FrameLayout即可."></a>首先为了方便使用,增加一个自定义容器,继承自FrameLayout即可.</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MgCardContainer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FrameLayout</span> </span>&#123;
-    <span class="hljs-keyword">private</span> Context context;
-    <span class="hljs-comment">/**关闭卡片样式*/</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_DISABLE = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">/**卡片头*/</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_TOP = <span class="hljs-number">1</span>;
-    <span class="hljs-comment">/**卡片中间*/</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_CENTER = <span class="hljs-number">2</span>;
-    <span class="hljs-comment">/**卡片底部*/</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_BOTTOM = <span class="hljs-number">3</span>;
-    <span class="hljs-comment">/**卡片四周*/</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_ALL_AROUND = <span class="hljs-number">4</span>;
-    <span class="hljs-keyword">private</span> Paint mPaint;
-    <span class="hljs-comment">/**设置单独卡片时使用的rect*/</span>
-    <span class="hljs-keyword">private</span> RectF mRectF;
-    <span class="hljs-comment">/**背景颜色,白天和晚上是不同的*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> backGroundColor;
-    <span class="hljs-comment">/**阴影颜色,白天和晚上使用同一个颜色*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> shadowColor;
-    <span class="hljs-comment">/**卡片样式,有0,1,2,3,4几种.*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> cardFlag = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">/**卡片的圆角值*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> cornerRadius = <span class="hljs-number">0</span>;
-    <span class="hljs-comment">/**阴影大小*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> shadowWidth;
-    <span class="hljs-comment">/**用来绘制阴影的画笔粗细*/</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> paintWidth;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context)</span> </span>&#123;
-        <span class="hljs-keyword">super</span>(context);
-        <span class="hljs-keyword">this</span>.context = context;
-        initView();
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs)</span> </span>&#123;
-        <span class="hljs-keyword">super</span>(context, attrs);
-        <span class="hljs-keyword">this</span>.context = context;
-        initView();
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;
-        <span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);
-        <span class="hljs-keyword">this</span>.context = context;
-        initView();
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initView</span><span class="hljs-params">()</span> </span>&#123;
-        paintWidth = ScreenUtil.dip2px(context, <span class="hljs-number">1</span>);
-        shadowWidth = ScreenUtil.dip2px(context, <span class="hljs-number">3</span>);
-        cornerRadius = ScreenUtil.dip2px(context, <span class="hljs-number">3</span>);
-        backGroundColor = getResources().getColor(R.color.color_v60_bg_with_card);
-        shadowColor = Color.GRAY;
-        mPaint = <span class="hljs-keyword">new</span> Paint();
-        mPaint.setColor(backGroundColor);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(paintWidth);
-        mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);
-        mRectF = <span class="hljs-keyword">new</span> RectF();
-    &#125;</code></pre>
-<h4 id="重写draw方法-在调用super之前-插入绘制阴影逻辑"><a href="#重写draw方法-在调用super之前-插入绘制阴影逻辑" class="headerlink" title="重写draw方法,在调用super之前,插入绘制阴影逻辑."></a>重写draw方法,在调用super之前,插入绘制阴影逻辑.</h4><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(Canvas canvas)</span> </span>&#123;
-        <span class="hljs-keyword">if</span> (cardFlag != <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">int</span> height = getHeight();
-            <span class="hljs-keyword">int</span> width = getWidth();
-            <span class="hljs-keyword">switch</span> (cardFlag) &#123;
-                <span class="hljs-keyword">case</span> CARD_FLAG_TOP:
-                    drawHeadShadow(canvas, width, height);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> CARD_FLAG_CENTER:
-                    drawLeftAndRightShadow(canvas, width, height);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> CARD_FLAG_BOTTOM:
-                    drawBottomShadow(canvas, width, height);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> CARD_FLAG_ALL_AROUND:
-                    drawAllAroundShadow(canvas, width, height);
-                    <span class="hljs-keyword">break</span>;
-            &#125;
-        &#125;
-        <span class="hljs-keyword">super</span>.draw(canvas);
-    &#125;</code></pre>
+<h4 id="首先为了方便使用-增加一个自定义容器-继承自FrameLayout即可"><a href="#首先为了方便使用-增加一个自定义容器-继承自FrameLayout即可" class="headerlink" title="首先为了方便使用,增加一个自定义容器,继承自FrameLayout即可."></a>首先为了方便使用,增加一个自定义容器,继承自FrameLayout即可.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MgCardContainer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FrameLayout</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Context context;<br>    <span class="hljs-comment">/**关闭卡片样式*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_DISABLE = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">/**卡片头*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_TOP = <span class="hljs-number">1</span>;<br>    <span class="hljs-comment">/**卡片中间*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_CENTER = <span class="hljs-number">2</span>;<br>    <span class="hljs-comment">/**卡片底部*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_BOTTOM = <span class="hljs-number">3</span>;<br>    <span class="hljs-comment">/**卡片四周*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CARD_FLAG_ALL_AROUND = <span class="hljs-number">4</span>;<br>    <span class="hljs-keyword">private</span> Paint mPaint;<br>    <span class="hljs-comment">/**设置单独卡片时使用的rect*/</span><br>    <span class="hljs-keyword">private</span> RectF mRectF;<br>    <span class="hljs-comment">/**背景颜色,白天和晚上是不同的*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> backGroundColor;<br>    <span class="hljs-comment">/**阴影颜色,白天和晚上使用同一个颜色*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> shadowColor;<br>    <span class="hljs-comment">/**卡片样式,有0,1,2,3,4几种.*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> cardFlag = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">/**卡片的圆角值*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> cornerRadius = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">/**阴影大小*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> shadowWidth;<br>    <span class="hljs-comment">/**用来绘制阴影的画笔粗细*/</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> paintWidth;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(context);<br>        <span class="hljs-keyword">this</span>.context = context;<br>        initView();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(context, attrs);<br>        <span class="hljs-keyword">this</span>.context = context;<br>        initView();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MgCardContainer</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);<br>        <span class="hljs-keyword">this</span>.context = context;<br>        initView();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initView</span><span class="hljs-params">()</span> </span>&#123;<br>        paintWidth = ScreenUtil.dip2px(context, <span class="hljs-number">1</span>);<br>        shadowWidth = ScreenUtil.dip2px(context, <span class="hljs-number">3</span>);<br>        cornerRadius = ScreenUtil.dip2px(context, <span class="hljs-number">3</span>);<br>        backGroundColor = getResources().getColor(R.color.color_v60_bg_with_card);<br>        shadowColor = Color.GRAY;<br>        mPaint = <span class="hljs-keyword">new</span> Paint();<br>        mPaint.setColor(backGroundColor);<br>        mPaint.setStyle(Paint.Style.STROKE);<br>        mPaint.setStrokeWidth(paintWidth);<br>        mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);<br>        mRectF = <span class="hljs-keyword">new</span> RectF();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h4 id="重写draw方法-在调用super之前-插入绘制阴影逻辑"><a href="#重写draw方法-在调用super之前-插入绘制阴影逻辑" class="headerlink" title="重写draw方法,在调用super之前,插入绘制阴影逻辑."></a>重写draw方法,在调用super之前,插入绘制阴影逻辑.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(Canvas canvas)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (cardFlag != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">int</span> height = getHeight();<br>            <span class="hljs-keyword">int</span> width = getWidth();<br>            <span class="hljs-keyword">switch</span> (cardFlag) &#123;<br>                <span class="hljs-keyword">case</span> CARD_FLAG_TOP:<br>                    drawHeadShadow(canvas, width, height);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> CARD_FLAG_CENTER:<br>                    drawLeftAndRightShadow(canvas, width, height);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> CARD_FLAG_BOTTOM:<br>                    drawBottomShadow(canvas, width, height);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> CARD_FLAG_ALL_AROUND:<br>                    drawAllAroundShadow(canvas, width, height);<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">super</span>.draw(canvas);<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="针对卡片头部-卡片中间部分-卡片底部-单个卡片-分别进行阴影绘制"><a href="#针对卡片头部-卡片中间部分-卡片底部-单个卡片-分别进行阴影绘制" class="headerlink" title="针对卡片头部,卡片中间部分,卡片底部,单个卡片,分别进行阴影绘制."></a>针对卡片头部,卡片中间部分,卡片底部,单个卡片,分别进行阴影绘制.</h4><p>头部阴影</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 画卡片头部阴影</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawHeadShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);
-    <span class="hljs-comment">//顶部阴影</span>
-    canvas.drawLine(cornerRadius, paintWidth, width - cornerRadius, paintWidth, mPaint);
-
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, -shadowWidth, shadowColor);
-    <span class="hljs-comment">//左侧阴影</span>
-    canvas.drawLine(paintWidth, cornerRadius, paintWidth, height + cornerRadius + shadowWidth, mPaint);
-    <span class="hljs-comment">//右侧阴影</span>
-    canvas.drawLine(width - paintWidth, cornerRadius, width - paintWidth, height + cornerRadius + shadowWidth, mPaint);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 画卡片头部阴影</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawHeadShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;<br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);<br>    <span class="hljs-comment">//顶部阴影</span><br>    canvas.drawLine(cornerRadius, paintWidth, width - cornerRadius, paintWidth, mPaint);<br><br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, -shadowWidth, shadowColor);<br>    <span class="hljs-comment">//左侧阴影</span><br>    canvas.drawLine(paintWidth, cornerRadius, paintWidth, height + cornerRadius + shadowWidth, mPaint);<br>    <span class="hljs-comment">//右侧阴影</span><br>    canvas.drawLine(width - paintWidth, cornerRadius, width - paintWidth, height + cornerRadius + shadowWidth, mPaint);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>中间阴影</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 画左右两边阴影</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawLeftAndRightShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, shadowWidth, shadowColor);
-    <span class="hljs-comment">//左侧阴影</span>
-    canvas.drawLine(paintWidth, <span class="hljs-number">0</span>, paintWidth, height, mPaint);
-    <span class="hljs-comment">//右侧阴影</span>
-    canvas.drawLine(width - paintWidth, <span class="hljs-number">0</span>, width - paintWidth, height, mPaint);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 画左右两边阴影</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawLeftAndRightShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;<br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, shadowWidth, shadowColor);<br>    <span class="hljs-comment">//左侧阴影</span><br>    canvas.drawLine(paintWidth, <span class="hljs-number">0</span>, paintWidth, height, mPaint);<br>    <span class="hljs-comment">//右侧阴影</span><br>    canvas.drawLine(width - paintWidth, <span class="hljs-number">0</span>, width - paintWidth, height, mPaint);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>底部阴影</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 画底部卡片的阴影</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawBottomShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);
-    <span class="hljs-comment">//底部阴影</span>
-    canvas.drawLine(cornerRadius, height - paintWidth, width - cornerRadius, height - paintWidth, mPaint);
-
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, shadowWidth, shadowColor);
-    <span class="hljs-comment">//左侧阴影</span>
-    canvas.drawLine(paintWidth, <span class="hljs-number">0</span>, paintWidth, height - cornerRadius, mPaint);
-    <span class="hljs-comment">//右侧阴影</span>
-    canvas.drawLine(width - paintWidth, <span class="hljs-number">0</span>, width - paintWidth, height - cornerRadius, mPaint);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 画底部卡片的阴影</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawBottomShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;<br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);<br>    <span class="hljs-comment">//底部阴影</span><br>    canvas.drawLine(cornerRadius, height - paintWidth, width - cornerRadius, height - paintWidth, mPaint);<br><br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, shadowWidth, shadowColor);<br>    <span class="hljs-comment">//左侧阴影</span><br>    canvas.drawLine(paintWidth, <span class="hljs-number">0</span>, paintWidth, height - cornerRadius, mPaint);<br>    <span class="hljs-comment">//右侧阴影</span><br>    canvas.drawLine(width - paintWidth, <span class="hljs-number">0</span>, width - paintWidth, height - cornerRadius, mPaint);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>单个卡片四周绘制阴影</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 画单个卡片的阴影</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawAllAroundShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
-    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);
-    mRectF.left = paintWidth;
-    mRectF.top = paintWidth;
-    mRectF.right = width - paintWidth;
-    mRectF.bottom = height - paintWidth;
-    canvas.drawRoundRect(mRectF, cornerRadius, cornerRadius, mPaint);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 画单个卡片的阴影</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawAllAroundShadow</span><span class="hljs-params">(Canvas canvas, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;<br>    mPaint.setShadowLayer(shadowWidth, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, shadowColor);<br>    mRectF.left = paintWidth;<br>    mRectF.top = paintWidth;<br>    mRectF.right = width - paintWidth;<br>    mRectF.bottom = height - paintWidth;<br>    canvas.drawRoundRect(mRectF, cornerRadius, cornerRadius, mPaint);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><strong>之所以分成四个方法,而不是用组合的方式,是因为中间涉及阴影偏移,阴影线条长度有一些细微差异.可看代码自行感受.</strong></p>
-<h4 id="顺便把自动增加margin和圆角的方法发上来"><a href="#顺便把自动增加margin和圆角的方法发上来" class="headerlink" title="顺便把自动增加margin和圆角的方法发上来."></a>顺便把自动增加margin和圆角的方法发上来.</h4><pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 开启卡片样式</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> cardFlag &#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_TOP&#125;,</span>
-<span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_CENTER&#125;&#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_BOTTOM&#125;&#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_ALL_AROUND&#125;</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">enableCardStyle</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cardFlag)</span> </span>&#123;
-    <span class="hljs-keyword">this</span>.cardFlag = cardFlag;
-    MarginLayoutParams pa = (MarginLayoutParams) getLayoutParams();
-    <span class="hljs-comment">//第一步,先设置margin</span>
-    <span class="hljs-keyword">if</span> (getTag(R.id.dsl_tag_view_card) == <span class="hljs-keyword">null</span>) &#123;
-        setTag(R.id.dsl_tag_view_card, cardFlag);
-        Drawable drawable = getBackground();
-        GradientDrawable gradientDrawable;
-        <span class="hljs-keyword">if</span> (drawable <span class="hljs-keyword">instanceof</span> GradientDrawable) &#123;
-            gradientDrawable = (GradientDrawable) drawable;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            gradientDrawable = <span class="hljs-keyword">new</span> GradientDrawable();
-            gradientDrawable.setColor(backGroundColor);
-        &#125;
-        pa.leftMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-        pa.rightMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-        <span class="hljs-keyword">switch</span> (cardFlag) &#123;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-                pa.topMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                gradientDrawable.setCornerRadii(<span class="hljs-keyword">new</span> <span class="hljs-keyword">float</span>[]&#123;cornerRadius, cornerRadius, cornerRadius, cornerRadius, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);
-                <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
-                gradientDrawable.setCornerRadius(<span class="hljs-number">0</span>);
-                <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
-                pa.bottomMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                gradientDrawable.setCornerRadii(<span class="hljs-keyword">new</span> <span class="hljs-keyword">float</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, cornerRadius, cornerRadius, cornerRadius, cornerRadius&#125;);
-                <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
-                pa.topMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                pa.bottomMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                gradientDrawable.setCornerRadius(cornerRadius);
-                <span class="hljs-keyword">break</span>;
-        &#125;
-        setBackground(gradientDrawable);
-        setLayoutParams(pa);
-        invalidate();
-    &#125;
-&#125;
-
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 禁用卡片样式</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">disableCardStyle</span><span class="hljs-params">()</span> </span>&#123;
-    cardFlag = <span class="hljs-number">0</span>;
-    MarginLayoutParams pa = (MarginLayoutParams) getLayoutParams();
-    <span class="hljs-keyword">if</span> (getTag(R.id.dsl_tag_view_card) != <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-keyword">int</span> flag = (<span class="hljs-keyword">int</span>) getTag(R.id.dsl_tag_view_card);
-        pa.leftMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-        pa.rightMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-        <span class="hljs-keyword">switch</span> (flag) &#123;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-                pa.topMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
-                pa.bottomMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
-                pa.topMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                pa.bottomMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);
-                <span class="hljs-keyword">break</span>;
-        &#125;
-        setTag(R.id.dsl_tag_view_card, <span class="hljs-keyword">null</span>);
-        setBackgroundColor(Color.TRANSPARENT);
-        setLayoutParams(pa);
-        invalidate();
-    &#125;
-&#125;</code></pre>
+<h4 id="顺便把自动增加margin和圆角的方法发上来"><a href="#顺便把自动增加margin和圆角的方法发上来" class="headerlink" title="顺便把自动增加margin和圆角的方法发上来."></a>顺便把自动增加margin和圆角的方法发上来.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 开启卡片样式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> cardFlag &#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_TOP&#125;,</span><br><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_CENTER&#125;&#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_BOTTOM&#125;&#123;<span class="hljs-doctag">@link</span> MgCardContainer#CARD_FLAG_ALL_AROUND&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">enableCardStyle</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cardFlag)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.cardFlag = cardFlag;<br>    MarginLayoutParams pa = (MarginLayoutParams) getLayoutParams();<br>    <span class="hljs-comment">//第一步,先设置margin</span><br>    <span class="hljs-keyword">if</span> (getTag(R.id.dsl_tag_view_card) == <span class="hljs-keyword">null</span>) &#123;<br>        setTag(R.id.dsl_tag_view_card, cardFlag);<br>        Drawable drawable = getBackground();<br>        GradientDrawable gradientDrawable;<br>        <span class="hljs-keyword">if</span> (drawable <span class="hljs-keyword">instanceof</span> GradientDrawable) &#123;<br>            gradientDrawable = (GradientDrawable) drawable;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            gradientDrawable = <span class="hljs-keyword">new</span> GradientDrawable();<br>            gradientDrawable.setColor(backGroundColor);<br>        &#125;<br>        pa.leftMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>        pa.rightMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>        <span class="hljs-keyword">switch</span> (cardFlag) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>                pa.topMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                gradientDrawable.setCornerRadii(<span class="hljs-keyword">new</span> <span class="hljs-keyword">float</span>[]&#123;cornerRadius, cornerRadius, cornerRadius, cornerRadius, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>                gradientDrawable.setCornerRadius(<span class="hljs-number">0</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>                pa.bottomMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                gradientDrawable.setCornerRadii(<span class="hljs-keyword">new</span> <span class="hljs-keyword">float</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, cornerRadius, cornerRadius, cornerRadius, cornerRadius&#125;);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>                pa.topMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                pa.bottomMargin += ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                gradientDrawable.setCornerRadius(cornerRadius);<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>        setBackground(gradientDrawable);<br>        setLayoutParams(pa);<br>        invalidate();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 禁用卡片样式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">disableCardStyle</span><span class="hljs-params">()</span> </span>&#123;<br>    cardFlag = <span class="hljs-number">0</span>;<br>    MarginLayoutParams pa = (MarginLayoutParams) getLayoutParams();<br>    <span class="hljs-keyword">if</span> (getTag(R.id.dsl_tag_view_card) != <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">int</span> flag = (<span class="hljs-keyword">int</span>) getTag(R.id.dsl_tag_view_card);<br>        pa.leftMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>        pa.rightMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>        <span class="hljs-keyword">switch</span> (flag) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>                pa.topMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>                pa.bottomMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>                pa.topMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                pa.bottomMargin -= ScreenUtil.dip2px(context, <span class="hljs-number">6</span>);<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>        setTag(R.id.dsl_tag_view_card, <span class="hljs-keyword">null</span>);<br>        setBackgroundColor(Color.TRANSPARENT);<br>        setLayoutParams(pa);<br>        invalidate();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>就这样了.展示效果完美,适配系统暗夜模式,无毛边,无越界.</p>
 

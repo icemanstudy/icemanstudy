@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      504 字
+      508 字
     </span>
   
 
@@ -217,29 +217,17 @@
             
             <div class="markdown-body">
               <h3 id="转换器"><a href="#转换器" class="headerlink" title="转换器"></a>转换器</h3><p>对象转换<br>当表达式返回一个对象时,将会从自动set,重命名set,自定义set中自动选择set方法,根据set方法的参数类型,强制转换为对应的类型.<br>在用ObservableMaps存放数据时比较方便,比如:</p>
-<pre><code class="hljs routeros">&lt;TextView
-   android:<span class="hljs-attribute">text</span>=<span class="hljs-string">&#x27;@&#123;userMap[&quot;lastName&quot;]&#125;&#x27;</span>
-   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>
-   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;TextView<br>   android:<span class="hljs-attribute">text</span>=<span class="hljs-string">&#x27;@&#123;userMap[&quot;lastName&quot;]&#125;&#x27;</span><br>   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span><br>   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
 
 <p>这里userMap返回一个对象,这个对象将会根据<code>setText(CharSequence)</code>方法进行强制类型转换.但是某些时候直接强制类型转换是不行的,此时开发者需要手动进行转换.</p>
 <h4 id="自定义的转换器"><a href="#自定义的转换器" class="headerlink" title="自定义的转换器"></a>自定义的转换器</h4><p>下面这种情况:</p>
-<pre><code class="hljs routeros">&lt;View
-   android:<span class="hljs-attribute">background</span>=<span class="hljs-string">&quot;@&#123;isError ? @color/red : @color/white&#125;&quot;</span>
-   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>
-   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;View<br>   android:<span class="hljs-attribute">background</span>=<span class="hljs-string">&quot;@&#123;isError ? @color/red : @color/white&#125;&quot;</span><br>   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span><br>   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
 
 <p>此处background需要一个<code>Drawable</code>,但是实际上color是一个<code>integer</code>对象.当出现这种情况时,需要将int转换为<code>ColorDrawable</code>.这个转换是通过<code>BindConversion</code>注解的静态方法实现的.</p>
-<pre><code class="hljs java"><span class="hljs-meta">@BindingConversion</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ColorDrawable <span class="hljs-title">convertColorToDrawable</span><span class="hljs-params">(<span class="hljs-keyword">int</span> color)</span> </span>&#123;
-   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ColorDrawable(color);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@BindingConversion</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ColorDrawable <span class="hljs-title">convertColorToDrawable</span><span class="hljs-params">(<span class="hljs-keyword">int</span> color)</span> </span>&#123;<br>   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ColorDrawable(color);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>注意:转换只发生在set方法中,所以下面混合的类型是不允许的.</p>
-<pre><code class="hljs routeros">&lt;View
-   android:<span class="hljs-attribute">background</span>=<span class="hljs-string">&quot;@&#123;isError ? @drawable/error : @color/white&#125;&quot;</span>
-   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>
-   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;View<br>   android:<span class="hljs-attribute">background</span>=<span class="hljs-string">&quot;@&#123;isError ? @drawable/error : @color/white&#125;&quot;</span><br>   android:<span class="hljs-attribute">layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span><br>   android:<span class="hljs-attribute">layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
 
 <h4 id="AndroidStudio对databind的支持"><a href="#AndroidStudio对databind的支持" class="headerlink" title="AndroidStudio对databind的支持"></a>AndroidStudio对databind的支持</h4><p>android studio支持较多的databind编辑器特性.目前有如下支持:</p>
 <ul>
@@ -250,9 +238,7 @@
 </ul>
 <p>注意:数组和泛型类型,比如Observable类,可能在没有错误时也显示错误.</p>
 <p>你可以通过表达式中使用default属性来指定希望在预览窗口中看到的样式.比如下面这个例子中,预览窗口会显示PLACEHOLDER值作为TextView默认的文字:</p>
-<pre><code class="hljs routeros">&lt;TextView android:<span class="hljs-attribute">layout_width</span>=”wrap_content”
-   android:<span class="hljs-attribute">layout_height</span>=”wrap_content”
-   android:<span class="hljs-attribute">text</span>=”@&#123;user.firstName, <span class="hljs-attribute">default</span>=PLACEHOLDER&#125;”/&gt;</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;TextView android:<span class="hljs-attribute">layout_width</span>=”wrap_content”<br>   android:<span class="hljs-attribute">layout_height</span>=”wrap_content”<br>   android:<span class="hljs-attribute">text</span>=”@&#123;user.firstName, <span class="hljs-attribute">default</span>=PLACEHOLDER&#125;”/&gt;<br></code></pre></td></tr></table></figure>
 
 <p>如果你希望更简单的在设计阶段显示显示你的默认值,也可以使用tools命名空间来指定.详细使用可以参考Designtime Layout Attributes.</p>
 

@@ -244,51 +244,23 @@
 <p>android中一般使用httpurlconnection和httpclient访问网络，这两种情况下使用证书的方式稍有不同，但核心都在一个叫SSLSocketFactory的类上面。</p>
 <h4 id="先说httpurlconnection："><a href="#先说httpurlconnection：" class="headerlink" title="先说httpurlconnection："></a>先说httpurlconnection：</h4><p>主机名验证:</p>
 <p>这个可以使用默认的,看看这句明显是废话的代码就明白了:</p>
-<pre><code class="hljs java">HttpsURLConnection.setDefaultHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">HttpsURLConnection.setDefaultHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());<br></code></pre></td></tr></table></figure>
 
 <p>证书验证:</p>
-<h5 id="第一步-读取公钥信息到keystore中"><a href="#第一步-读取公钥信息到keystore中" class="headerlink" title="第一步:读取公钥信息到keystore中."></a>第一步:读取公钥信息到keystore中.</h5><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> KeyStore <span class="hljs-title">buildKeyStore</span><span class="hljs-params">(Context context, <span class="hljs-keyword">int</span> certRawResId)</span> <span class="hljs-keyword">throws</span> KeyStoreException, CertificateException,NoSuchAlgorithmException, IOException </span>&#123;
-	String keyStoreType = KeyStore.getDefaultType();
-	KeyStore keyStore = KeyStore.getInstance(keyStoreType);
-	InputStream inputStream = context.getResources().openRawResource(certRawResId);
-	keyStore.load(inputStream, <span class="hljs-string">&quot;xxxx&quot;</span>.toCharArray());
-	<span class="hljs-keyword">return</span> keyStore;
-&#125;</code></pre>
+<h5 id="第一步-读取公钥信息到keystore中"><a href="#第一步-读取公钥信息到keystore中" class="headerlink" title="第一步:读取公钥信息到keystore中."></a>第一步:读取公钥信息到keystore中.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> KeyStore <span class="hljs-title">buildKeyStore</span><span class="hljs-params">(Context context, <span class="hljs-keyword">int</span> certRawResId)</span> <span class="hljs-keyword">throws</span> KeyStoreException, CertificateException,NoSuchAlgorithmException, IOException </span>&#123;<br>	String keyStoreType = KeyStore.getDefaultType();<br>	KeyStore keyStore = KeyStore.getInstance(keyStoreType);<br>	InputStream inputStream = context.getResources().openRawResource(certRawResId);<br>	keyStore.load(inputStream, <span class="hljs-string">&quot;xxxx&quot;</span>.toCharArray());<br>	<span class="hljs-keyword">return</span> keyStore;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
-<h5 id="第二步-使用这个keystore来初始化一个trustmanager-trustmanager简单来说-就是管理是否信任服务端的"><a href="#第二步-使用这个keystore来初始化一个trustmanager-trustmanager简单来说-就是管理是否信任服务端的" class="headerlink" title="第二步:使用这个keystore来初始化一个trustmanager, trustmanager简单来说,就是管理是否信任服务端的."></a>第二步:使用这个keystore来初始化一个trustmanager, trustmanager简单来说,就是管理是否信任服务端的.</h5><pre><code class="hljs java">String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-TrustManagerFactory tmf = <span class="hljs-keyword">null</span>;
-<span class="hljs-keyword">try</span> &#123; 
-	tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-	tmf.init(keyStore);
-&#125; <span class="hljs-keyword">catch</span> (NoSuchAlgorithmException e)&#123;
-	e.printStackTrace();
-&#125; <span class="hljs-keyword">catch</span> (KeyStoreException e)&#123;
-	e.printStackTrace();
-&#125;</code></pre>
+<h5 id="第二步-使用这个keystore来初始化一个trustmanager-trustmanager简单来说-就是管理是否信任服务端的"><a href="#第二步-使用这个keystore来初始化一个trustmanager-trustmanager简单来说-就是管理是否信任服务端的" class="headerlink" title="第二步:使用这个keystore来初始化一个trustmanager, trustmanager简单来说,就是管理是否信任服务端的."></a>第二步:使用这个keystore来初始化一个trustmanager, trustmanager简单来说,就是管理是否信任服务端的.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();<br>TrustManagerFactory tmf = <span class="hljs-keyword">null</span>;<br><span class="hljs-keyword">try</span> &#123; <br>	tmf = TrustManagerFactory.getInstance(tmfAlgorithm);<br>	tmf.init(keyStore);<br>&#125; <span class="hljs-keyword">catch</span> (NoSuchAlgorithmException e)&#123;<br>	e.printStackTrace();<br>&#125; <span class="hljs-keyword">catch</span> (KeyStoreException e)&#123;<br>	e.printStackTrace();<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h5 id="第三步-使用得到的trustmanager来初始化一个SslContext-进而得到SocketFactory"><a href="#第三步-使用得到的trustmanager来初始化一个SslContext-进而得到SocketFactory" class="headerlink" title="第三步,使用得到的trustmanager来初始化一个SslContext,进而得到SocketFactory:"></a>第三步,使用得到的trustmanager来初始化一个SslContext,进而得到SocketFactory:</h5><pre><code class="hljs java">SSLContext sslContext = <span class="hljs-keyword">null</span>;
-<span class="hljs-keyword">try</span> &#123;
-	sslContext = SSLContext.getInstance(“TLS”);
-&#125; <span class="hljs-keyword">catch</span> (NoSuchAlgorithmException e)&#123; 
-	e.printStackTrace();
-&#125;
-<span class="hljs-keyword">try</span> &#123;
-	sslContext.init(<span class="hljs-keyword">null</span>, tmf.getTrustManagers(), <span class="hljs-keyword">null</span>);
-&#125; <span class="hljs-keyword">catch</span> (KeyManagementException e) &#123;
-	e.printStackTrace(); &#125; <span class="hljs-keyword">return</span> sslContext.getSocketFactory();</code></pre>
+<h5 id="第三步-使用得到的trustmanager来初始化一个SslContext-进而得到SocketFactory"><a href="#第三步-使用得到的trustmanager来初始化一个SslContext-进而得到SocketFactory" class="headerlink" title="第三步,使用得到的trustmanager来初始化一个SslContext,进而得到SocketFactory:"></a>第三步,使用得到的trustmanager来初始化一个SslContext,进而得到SocketFactory:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">SSLContext sslContext = <span class="hljs-keyword">null</span>;<br><span class="hljs-keyword">try</span> &#123;<br>	sslContext = SSLContext.getInstance(“TLS”);<br>&#125; <span class="hljs-keyword">catch</span> (NoSuchAlgorithmException e)&#123; <br>	e.printStackTrace();<br>&#125;<br><span class="hljs-keyword">try</span> &#123;<br>	sslContext.init(<span class="hljs-keyword">null</span>, tmf.getTrustManagers(), <span class="hljs-keyword">null</span>);<br>&#125; <span class="hljs-keyword">catch</span> (KeyManagementException e) &#123;<br>	e.printStackTrace(); &#125; <span class="hljs-keyword">return</span> sslContext.getSocketFactory();<br></code></pre></td></tr></table></figure>
 
 <p>得到SocketFactory之后就简单了,可以使用HttpsUrlconnetion的静态方法setDefaultSocketFactory来修改默认的,也可以在得到httpsurlconection以后调用setSSLSocketFactory方法来针对每个连接设置.</p>
 <h4 id="然后说说apache的httpclient中使用方法"><a href="#然后说说apache的httpclient中使用方法" class="headerlink" title="然后说说apache的httpclient中使用方法"></a>然后说说apache的httpclient中使用方法</h4><p>读取公钥至keystore跟前者完全一样.</p>
 <p>不同的是apache中也有个SocketFactory类,可以直接用keystore参数来构造,其主机名验证方式也有预设的3个级别:</p>
-<pre><code class="hljs java">SSLSocketFactory sf = <span class="hljs-keyword">new</span> SSLSocketFactory(keyStore);
-sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">SSLSocketFactory sf = <span class="hljs-keyword">new</span> SSLSocketFactory(keyStore);<br>sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);<br></code></pre></td></tr></table></figure>
 
 <p>然后是分别绑定http和https至不同的端口并指定使用的socketfactory:</p>
-<pre><code class="hljs java">SchemeRegistry registry = <span class="hljs-keyword">new</span> SchemeRegistry();
-registry.register(<span class="hljs-keyword">new</span> Scheme(“http”, PlainSocketFactory.getSocketFactory(), <span class="hljs-number">80</span>));
-registry.register(<span class="hljs-keyword">new</span> Scheme(“https”, sf, <span class="hljs-number">443</span>));
-<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SingleClientConnManager(getParams(), registry);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">SchemeRegistry registry = <span class="hljs-keyword">new</span> SchemeRegistry();<br>registry.register(<span class="hljs-keyword">new</span> Scheme(“http”, PlainSocketFactory.getSocketFactory(), <span class="hljs-number">80</span>));<br>registry.register(<span class="hljs-keyword">new</span> Scheme(“https”, sf, <span class="hljs-number">443</span>));<br><span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SingleClientConnManager(getParams(), registry);<br></code></pre></td></tr></table></figure>
 
 <p>得到上面这个SingleClientConnManager之后,可以继承DefaultHttpClient,重写createClientConnectionManager来返回这个SingleClientConnManager,也可以直接使用这个SingleClientConnManager来构建一个defaultHttpClient.</p>
 

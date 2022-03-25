@@ -221,221 +221,32 @@
 <h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><h4 id="将按照Flex规范定义的页面描述文件-转化成对应的原生视图-同时根据其配置信息-从外层数据中查找对应内容进行展示"><a href="#将按照Flex规范定义的页面描述文件-转化成对应的原生视图-同时根据其配置信息-从外层数据中查找对应内容进行展示" class="headerlink" title="将按照Flex规范定义的页面描述文件,转化成对应的原生视图,同时根据其配置信息,从外层数据中查找对应内容进行展示."></a>将按照Flex规范定义的页面描述文件,转化成对应的原生视图,同时根据其配置信息,从外层数据中查找对应内容进行展示.</h4><p><img src="https://i.loli.net/2020/09/02/c9QpVmlKJxuIYjq.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://i.loli.net/2020/09/02/tZydJPTYxwicmGF.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="核心流程详解"><a href="#核心流程详解" class="headerlink" title="核心流程详解"></a>核心流程详解</h2><h3 id="DSL解析"><a href="#DSL解析" class="headerlink" title="DSL解析"></a>DSL解析</h3><p>接口下发的DSL数据示例<br><img src="https://i.loli.net/2020/09/02/tfIUKdhXvmknbyV.png" srcset="/img/loading.gif" lazyload><br>其中样式,事件,动画的解析,由一个入口XML解析器来分发:</p>
-<pre><code class="hljs java">    <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startElement</span><span class="hljs-params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="hljs-keyword">throws</span> SAXException </span>&#123;
-        <span class="hljs-keyword">if</span> (mInnernalHandler == <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">switch</span> (localName) &#123;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Action&quot;</span>:
-                    mInnernalHandler = <span class="hljs-keyword">new</span> ActionXmlHandler();
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Animation&quot;</span>:<span class="hljs-comment">//动画还未启用,暂时注释.</span>
-<span class="hljs-comment">//                    mInnernalHandler = new AnimationXmlHandler();</span>
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">default</span>:
-                    mInnernalHandler = <span class="hljs-keyword">new</span> DynamicViewXmlHandler();
-                    <span class="hljs-keyword">break</span>;
-            &#125;
-            <span class="hljs-keyword">if</span> (mInnernalHandler != <span class="hljs-keyword">null</span>) &#123;
-                mInnernalHandler.startElement(uri, localName, qName, attributes);
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            mInnernalHandler.startElement(uri, localName, qName, attributes);
-        &#125;
-    &#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startElement</span><span class="hljs-params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="hljs-keyword">throws</span> SAXException </span>&#123;<br>        <span class="hljs-keyword">if</span> (mInnernalHandler == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">switch</span> (localName) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Action&quot;</span>:<br>                    mInnernalHandler = <span class="hljs-keyword">new</span> ActionXmlHandler();<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Animation&quot;</span>:<span class="hljs-comment">//动画还未启用,暂时注释.</span><br><span class="hljs-comment">//                    mInnernalHandler = new AnimationXmlHandler();</span><br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">default</span>:<br>                    mInnernalHandler = <span class="hljs-keyword">new</span> DynamicViewXmlHandler();<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (mInnernalHandler != <span class="hljs-keyword">null</span>) &#123;<br>                mInnernalHandler.startElement(uri, localName, qName, attributes);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            mInnernalHandler.startElement(uri, localName, qName, attributes);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 
 <p><img src="https://i.loli.net/2020/09/02/iM8jbFhplPLSE47.png" srcset="/img/loading.gif" lazyload></p>
 <p>入口解析器解析完每一段xml数据,都会返回DslMappingData数据.前端根据数据实际类型进行保存.</p>
-<pre><code class="hljs java">DslMappingData mappingData = XMLParsingMethods.readMixedXmlBySAX(layoutBean.dslXml);
-<span class="hljs-keyword">if</span> (mappingData != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlActionEntity) &#123;
-        mActionPool.addAction((XmlActionEntity) mappingData);
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlAnimationEntity) &#123;
-        mAnimationPool.addAnimation((XmlAnimationEntity) mappingData);
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> DynamicViewStyle) &#123;
-        DynamicViewStyle viewStyle = (DynamicViewStyle) mappingData;
-        viewStyle.layoutID = layoutBean.layoutID;
-        viewStyle.ver = layoutBean.ver;
-        <span class="hljs-keyword">if</span> (TextUtils.isEmpty(viewStyle.ver)) &#123;
-            viewStyle.ver = String.valueOf(System.currentTimeMillis());
-        &#125;
-        DynamicViewStyle currentStyle = mLayoutBeanHashMap.get(layoutBean.layoutID);
-        <span class="hljs-keyword">if</span> (currentStyle == <span class="hljs-keyword">null</span> || currentStyle.ver == <span class="hljs-keyword">null</span>) &#123;
-            mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">if</span> (!currentStyle.ver.equals(viewStyle.ver)) &#123;
-                mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);
-            &#125;
-        &#125;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java">DslMappingData mappingData = XMLParsingMethods.readMixedXmlBySAX(layoutBean.dslXml);<br><span class="hljs-keyword">if</span> (mappingData != <span class="hljs-keyword">null</span>) &#123;<br>    <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlActionEntity) &#123;<br>        mActionPool.addAction((XmlActionEntity) mappingData);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> XmlAnimationEntity) &#123;<br>        mAnimationPool.addAnimation((XmlAnimationEntity) mappingData);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mappingData <span class="hljs-keyword">instanceof</span> DynamicViewStyle) &#123;<br>        DynamicViewStyle viewStyle = (DynamicViewStyle) mappingData;<br>        viewStyle.layoutID = layoutBean.layoutID;<br>        viewStyle.ver = layoutBean.ver;<br>        <span class="hljs-keyword">if</span> (TextUtils.isEmpty(viewStyle.ver)) &#123;<br>            viewStyle.ver = String.valueOf(System.currentTimeMillis());<br>        &#125;<br>        DynamicViewStyle currentStyle = mLayoutBeanHashMap.get(layoutBean.layoutID);<br>        <span class="hljs-keyword">if</span> (currentStyle == <span class="hljs-keyword">null</span> || currentStyle.ver == <span class="hljs-keyword">null</span>) &#123;<br>            mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span> (!currentStyle.ver.equals(viewStyle.ver)) &#123;<br>                mLayoutBeanHashMap.put(layoutBean.layoutID, viewStyle);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
 <h3 id="视图创建"><a href="#视图创建" class="headerlink" title="视图创建"></a>视图创建</h3><p>根据DynamicViewStyle中定义的type,生成对应原生控件,并使用对应装饰器对其进行配置.</p>
-<h5 id="DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程"><a href="#DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程" class="headerlink" title="DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:"></a>DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:</h5><h4 id="1-根据对应type-生成原生控件和其对应装饰器"><a href="#1-根据对应type-生成原生控件和其对应装饰器" class="headerlink" title="1. 根据对应type,生成原生控件和其对应装饰器."></a>1. 根据对应type,生成原生控件和其对应装饰器.</h4><h5 id="生成原生控件"><a href="#生成原生控件" class="headerlink" title="生成原生控件"></a>生成原生控件</h5><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> DynamicViewDecorator <span class="hljs-title">makeSingleView</span><span class="hljs-params">(Activity activity, DynamicViewStyle style)</span> </span>&#123;
-        DynamicViewDecorator viewHolder = <span class="hljs-keyword">null</span>;
-        <span class="hljs-keyword">if</span> (style.type != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">switch</span> (style.type) &#123;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;View&quot;</span>:
-                    viewHolder = <span class="hljs-keyword">new</span> YogaLayoutDecorator(<span class="hljs-keyword">new</span> CustomYogaLayout(activity));
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;CardView&quot;</span>:
-                    viewHolder = <span class="hljs-keyword">new</span> CardViewDecorator(<span class="hljs-keyword">new</span> MgCardView(activity));
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;ListView&quot;</span>:
-                    viewHolder = <span class="hljs-keyword">new</span> ListViewDecorator(<span class="hljs-keyword">new</span> DynamicListView(activity));
-                    <span class="hljs-keyword">break</span>;
-            &#125;
-            <span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;
-                View view = mExtendViewCreater.makeView(activity, style.type);
-                <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;
-                    viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);
-                &#125;
-            &#125;
-        &#125;
-        <span class="hljs-keyword">return</span> viewHolder;
-    &#125;</code></pre>
+<h5 id="DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程"><a href="#DefaultViewGenerator是动态渲染库内部默认实现-提供了对应View的实例化过程" class="headerlink" title="DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:"></a>DefaultViewGenerator是动态渲染库内部默认实现,提供了对应View的实例化过程:</h5><h4 id="1-根据对应type-生成原生控件和其对应装饰器"><a href="#1-根据对应type-生成原生控件和其对应装饰器" class="headerlink" title="1. 根据对应type,生成原生控件和其对应装饰器."></a>1. 根据对应type,生成原生控件和其对应装饰器.</h4><h5 id="生成原生控件"><a href="#生成原生控件" class="headerlink" title="生成原生控件"></a>生成原生控件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> DynamicViewDecorator <span class="hljs-title">makeSingleView</span><span class="hljs-params">(Activity activity, DynamicViewStyle style)</span> </span>&#123;<br>        DynamicViewDecorator viewHolder = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">if</span> (style.type != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">switch</span> (style.type) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;View&quot;</span>:<br>                    viewHolder = <span class="hljs-keyword">new</span> YogaLayoutDecorator(<span class="hljs-keyword">new</span> CustomYogaLayout(activity));<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;CardView&quot;</span>:<br>                    viewHolder = <span class="hljs-keyword">new</span> CardViewDecorator(<span class="hljs-keyword">new</span> MgCardView(activity));<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;ListView&quot;</span>:<br>                    viewHolder = <span class="hljs-keyword">new</span> ListViewDecorator(<span class="hljs-keyword">new</span> DynamicListView(activity));<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;<br>                View view = mExtendViewCreater.makeView(activity, style.type);<br>                <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;<br>                    viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> viewHolder;<br>    &#125;<br></code></pre></td></tr></table></figure>
 <h5 id="根据控件类型-使用不同的装饰器进行属性配置"><a href="#根据控件类型-使用不同的装饰器进行属性配置" class="headerlink" title="根据控件类型,使用不同的装饰器进行属性配置"></a>根据控件类型,使用不同的装饰器进行属性配置</h5><p>此处装饰器!=装饰者模式,仅是用于对不同类型的控件,进行特有的动态属性设置.</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 作者：徐斌 &lt;br&gt;</span>
-<span class="hljs-comment"> * 日期：2020 08/03 10:09 &lt;br&gt;</span>
-<span class="hljs-comment"> * 说明：动态渲染控件配置接口,定义了目前动态渲染支持的一些属性.</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DslDecorator</span> </span>&#123;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 解析配置的Layout属性</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> bean DynamicViewStyle中的layout</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> parent 父容器.</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span></span>;
-
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 解析配置的Attr属性</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> styleAttr DynamicViewStyle中的attr</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> acitonObject DynamicViewStyle中的action</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> actionPool 外部的Action池子.定义了各种事件.</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAttr</span><span class="hljs-params">(Map&lt;String, String&gt; styleAttr, ActionEntity acitonObject, ActionPool actionPool)</span></span>;
-
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 解析配置的动画属性</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationEntity DynamicViewStyle中的animation部分</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationPool 外部的Animation池子.定义了各种动画.</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAnimation</span><span class="hljs-params">(AnimationEntity animationEntity, AnimationPool animationPool)</span></span>;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 作者：徐斌 &lt;br&gt;</span><br><span class="hljs-comment"> * 日期：2020 08/03 10:09 &lt;br&gt;</span><br><span class="hljs-comment"> * 说明：动态渲染控件配置接口,定义了目前动态渲染支持的一些属性.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DslDecorator</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 解析配置的Layout属性</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> bean DynamicViewStyle中的layout</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> parent 父容器.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 解析配置的Attr属性</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> styleAttr DynamicViewStyle中的attr</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> acitonObject DynamicViewStyle中的action</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> actionPool 外部的Action池子.定义了各种事件.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAttr</span><span class="hljs-params">(Map&lt;String, String&gt; styleAttr, ActionEntity acitonObject, ActionPool actionPool)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 解析配置的动画属性</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationEntity DynamicViewStyle中的animation部分</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> animationPool 外部的Animation池子.定义了各种动画.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseAnimation</span><span class="hljs-params">(AnimationEntity animationEntity, AnimationPool animationPool)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
-<h4 id="2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例"><a href="#2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例)."></a>2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例).</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span> </span>&#123;
-    YogaNode yogaNode = <span class="hljs-keyword">null</span>;
-    <span class="hljs-keyword">if</span> (parent <span class="hljs-keyword">instanceof</span> YogaLayout) &#123;
-        yogaNode = ((YogaLayout) parent).getYogaNodeForView(itemView);
-    &#125;
-    <span class="hljs-keyword">if</span> (yogaNode != <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-keyword">if</span> (bean.alignSelf != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">switch</span> (bean.alignSelf) &#123;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;flex-end&quot;</span>:
-                    yogaNode.setAlignSelf(YogaAlign.FLEX_END);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;center&quot;</span>:
-                    yogaNode.setAlignSelf(YogaAlign.CENTER);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-between&quot;</span>:
-                    yogaNode.setAlignSelf(YogaAlign.SPACE_BETWEEN);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-around&quot;</span>:
-                    yogaNode.setAlignSelf(YogaAlign.SPACE_AROUND);
-                    <span class="hljs-keyword">break</span>;
-                <span class="hljs-keyword">default</span>:
-                    yogaNode.setAlignSelf(YogaAlign.FLEX_START);
-                    <span class="hljs-keyword">break</span>;
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            yogaNode.setAlignSelf(YogaAlign.AUTO);
-        &#125;
-    &#125;
-&#125;</code></pre>
+<h4 id="2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例"><a href="#2-解析DynamicViewStyle中的layout配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例)."></a>2. 解析DynamicViewStyle中的layout配置,并应用(以通用的DynamicViewDecorator为例).</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">parseLayout</span><span class="hljs-params">(StyleLayout bean, <span class="hljs-meta">@Nullable</span> ViewGroup parent)</span> </span>&#123;<br>    YogaNode yogaNode = <span class="hljs-keyword">null</span>;<br>    <span class="hljs-keyword">if</span> (parent <span class="hljs-keyword">instanceof</span> YogaLayout) &#123;<br>        yogaNode = ((YogaLayout) parent).getYogaNodeForView(itemView);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (yogaNode != <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">if</span> (bean.alignSelf != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">switch</span> (bean.alignSelf) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;flex-end&quot;</span>:<br>                    yogaNode.setAlignSelf(YogaAlign.FLEX_END);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;center&quot;</span>:<br>                    yogaNode.setAlignSelf(YogaAlign.CENTER);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-between&quot;</span>:<br>                    yogaNode.setAlignSelf(YogaAlign.SPACE_BETWEEN);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;space-around&quot;</span>:<br>                    yogaNode.setAlignSelf(YogaAlign.SPACE_AROUND);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">default</span>:<br>                    yogaNode.setAlignSelf(YogaAlign.FLEX_START);<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            yogaNode.setAlignSelf(YogaAlign.AUTO);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h4 id="3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例"><a href="#3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例)."></a>3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例).</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> DynamicValueBinder&lt;T&gt; <span class="hljs-title">onParseAttr</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Map&lt;String, String&gt; styleAttr, <span class="hljs-meta">@Nullable</span> ActionEntity acitonObject, ActionPool actionPool)</span> </span>&#123;
-    ValueStore valueStore;
-    DynamicValueBinder&lt;T&gt; binder = createDynamicValueBinder();
-    <span class="hljs-keyword">if</span> (styleAttr != <span class="hljs-keyword">null</span>) &#123;
-        String alphaStr = styleAttr.get(<span class="hljs-string">&quot;alpha&quot;</span>);
-        <span class="hljs-keyword">if</span> (alphaStr != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">float</span> alphaNum = DynamicUtil.stringToFloat(alphaStr);
-            <span class="hljs-keyword">if</span> (alphaNum != <span class="hljs-number">0</span>) &#123;
-                itemView.setAlpha(alphaNum);
-            &#125;
-        &#125;
-        String visibleStr = styleAttr.get(<span class="hljs-string">&quot;visible&quot;</span>);
-        <span class="hljs-keyword">if</span> (!TextUtils.isEmpty(visibleStr)) &#123;
-            valueStore = <span class="hljs-keyword">new</span> ValueStore(visibleStr);
-            binder.addDataPath(<span class="hljs-string">&quot;visible&quot;</span>, valueStore);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> binder;
-&#125;</code></pre>
+<h4 id="3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例"><a href="#3-解析DynamicViewStyle中的attr配置-并应用-以通用的DynamicViewDecorator为例" class="headerlink" title="3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例)."></a>3. 解析DynamicViewStyle中的attr配置,并应用(以通用的DynamicViewDecorator为例).</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> DynamicValueBinder&lt;T&gt; <span class="hljs-title">onParseAttr</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Map&lt;String, String&gt; styleAttr, <span class="hljs-meta">@Nullable</span> ActionEntity acitonObject, ActionPool actionPool)</span> </span>&#123;<br>    ValueStore valueStore;<br>    DynamicValueBinder&lt;T&gt; binder = createDynamicValueBinder();<br>    <span class="hljs-keyword">if</span> (styleAttr != <span class="hljs-keyword">null</span>) &#123;<br>        String alphaStr = styleAttr.get(<span class="hljs-string">&quot;alpha&quot;</span>);<br>        <span class="hljs-keyword">if</span> (alphaStr != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">float</span> alphaNum = DynamicUtil.stringToFloat(alphaStr);<br>            <span class="hljs-keyword">if</span> (alphaNum != <span class="hljs-number">0</span>) &#123;<br>                itemView.setAlpha(alphaNum);<br>            &#125;<br>        &#125;<br>        String visibleStr = styleAttr.get(<span class="hljs-string">&quot;visible&quot;</span>);<br>        <span class="hljs-keyword">if</span> (!TextUtils.isEmpty(visibleStr)) &#123;<br>            valueStore = <span class="hljs-keyword">new</span> ValueStore(visibleStr);<br>            binder.addDataPath(<span class="hljs-string">&quot;visible&quot;</span>, valueStore);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> binder;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h4 id="4-为需要动态设置渲染内容的View配置id-用于外部查找"><a href="#4-为需要动态设置渲染内容的View配置id-用于外部查找" class="headerlink" title="4. 为需要动态设置渲染内容的View配置id,用于外部查找."></a>4. 为需要动态设置渲染内容的View配置id,用于外部查找.</h4><pre><code class="hljs java"><span class="hljs-comment">//第四步,设置attr属性,影响该控件显示的内容.</span>
-<span class="hljs-comment">// 如果是普通控件,按照是否有动态数据和是否有事件来决定生成id并加入列表</span>
-<span class="hljs-comment">// 否则直接给生成一个id,然后加入列表</span>
-<span class="hljs-keyword">if</span> (viewHolder <span class="hljs-keyword">instanceof</span> ExtendViewDecorator) &#123;
-    <span class="hljs-keyword">int</span> id = countHelper.getIdAndInCrease();
-    itemView.setId(id);
-    <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span>
-        bindableViewIds.add(id);
-    &#125;
-&#125; <span class="hljs-keyword">else</span> &#123;
-    viewHolder.parseAttr(style.attr, style.action, mActionPool);
-    <span class="hljs-comment">//如果该控件有需要动态设置的属性.设置id,并把id放入公共的id列表中.</span>
-    <span class="hljs-keyword">if</span> (viewHolder.needDynamicBind) &#123;
-        <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> PlayerView) &#123;
-            id = R.id.dsl_tag_playerview;
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> BackgroundView) &#123;
-            id = R.id.dsl_tag_backgroundview;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            id = countHelper.getIdAndInCrease();
-        &#125;
-        itemView.setId(id);
-        <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span>
-            bindableViewIds.add(id);
-        &#125;
-    &#125;
-&#125;</code></pre>
+<h4 id="4-为需要动态设置渲染内容的View配置id-用于外部查找"><a href="#4-为需要动态设置渲染内容的View配置id-用于外部查找" class="headerlink" title="4. 为需要动态设置渲染内容的View配置id,用于外部查找."></a>4. 为需要动态设置渲染内容的View配置id,用于外部查找.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//第四步,设置attr属性,影响该控件显示的内容.</span><br><span class="hljs-comment">// 如果是普通控件,按照是否有动态数据和是否有事件来决定生成id并加入列表</span><br><span class="hljs-comment">// 否则直接给生成一个id,然后加入列表</span><br><span class="hljs-keyword">if</span> (viewHolder <span class="hljs-keyword">instanceof</span> ExtendViewDecorator) &#123;<br>    <span class="hljs-keyword">int</span> id = countHelper.getIdAndInCrease();<br>    itemView.setId(id);<br>    <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span><br>        bindableViewIds.add(id);<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    viewHolder.parseAttr(style.attr, style.action, mActionPool);<br>    <span class="hljs-comment">//如果该控件有需要动态设置的属性.设置id,并把id放入公共的id列表中.</span><br>    <span class="hljs-keyword">if</span> (viewHolder.needDynamicBind) &#123;<br>        <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> PlayerView) &#123;<br>            id = R.id.dsl_tag_playerview;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> BackgroundView) &#123;<br>            id = R.id.dsl_tag_backgroundview;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            id = countHelper.getIdAndInCrease();<br>        &#125;<br>        itemView.setId(id);<br>        <span class="hljs-keyword">if</span> (bindableViewIds != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//bindableViewIds是对应某个layout样式的,这里做个判空,防止重复添加.</span><br>            bindableViewIds.add(id);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h4 id="5-为列表型View设置item样式"><a href="#5-为列表型View设置item样式" class="headerlink" title="5. 为列表型View设置item样式."></a>5. 为列表型View设置item样式.</h4><pre><code class="hljs java"><span class="hljs-keyword">if</span> (style.item != <span class="hljs-keyword">null</span> &amp;&amp; itemView <span class="hljs-keyword">instanceof</span> DslListInterface) &#123;
-    ((DslListInterface) itemView).setDynamicStyle(style.item, <span class="hljs-keyword">this</span>);
-&#125;</code></pre>
-<h4 id="6-重复1-5-对其child进行实例化-并构建层次结构"><a href="#6-重复1-5-对其child进行实例化-并构建层次结构" class="headerlink" title="6. 重复1~5,对其child进行实例化,并构建层次结构."></a>6. 重复1~5,对其child进行实例化,并构建层次结构.</h4><pre><code class="hljs java"><span class="hljs-comment">//第七步,如果这是个容器.遍历一下.添加child.</span>
-<span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> ViewGroup &amp;&amp; style.children != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">for</span> (DynamicViewStyle childBean : style.children) &#123;
-        makeCurrentView(activity, (ViewGroup) itemView, childBean, bindableViewIds, countHelper, connectionHelper);
-    &#125;
-&#125;</code></pre>
+<h4 id="5-为列表型View设置item样式"><a href="#5-为列表型View设置item样式" class="headerlink" title="5. 为列表型View设置item样式."></a>5. 为列表型View设置item样式.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (style.item != <span class="hljs-keyword">null</span> &amp;&amp; itemView <span class="hljs-keyword">instanceof</span> DslListInterface) &#123;<br>    ((DslListInterface) itemView).setDynamicStyle(style.item, <span class="hljs-keyword">this</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="6-重复1-5-对其child进行实例化-并构建层次结构"><a href="#6-重复1-5-对其child进行实例化-并构建层次结构" class="headerlink" title="6. 重复1~5,对其child进行实例化,并构建层次结构."></a>6. 重复1~5,对其child进行实例化,并构建层次结构.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//第七步,如果这是个容器.遍历一下.添加child.</span><br><span class="hljs-keyword">if</span> (itemView <span class="hljs-keyword">instanceof</span> ViewGroup &amp;&amp; style.children != <span class="hljs-keyword">null</span>) &#123;<br>    <span class="hljs-keyword">for</span> (DynamicViewStyle childBean : style.children) &#123;<br>        makeCurrentView(activity, (ViewGroup) itemView, childBean, bindableViewIds, countHelper, connectionHelper);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h4 id="7-完成View-View间的绑定关系-目前用于Banner-Indicator"><a href="#7-完成View-View间的绑定关系-目前用于Banner-Indicator" class="headerlink" title="7. 完成View-View间的绑定关系(目前用于Banner-Indicator)."></a>7. 完成View-View间的绑定关系(目前用于Banner-Indicator).</h4><pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * view创建完了.来做个绑定吧..可能内部存在啥联动之类的.比如banner和指示器</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">creatConections</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (mConnectionAbleArrayList.size() &gt; <span class="hljs-number">1</span>) &#123;
-        <span class="hljs-keyword">for</span> (ConnectionAble connectionAble : mConnectionAbleArrayList) &#123;
-            <span class="hljs-keyword">for</span> (ConnectionAble connectionAble2 : mConnectionAbleArrayList) &#123;
-                <span class="hljs-keyword">if</span> (connectionAble != connectionAble2) &#123;
-                    connectionAble.onConection(connectionAble2);
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-    mConnectionAbleArrayList.clear();
-&#125;</code></pre>
-<h5 id="对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程"><a href="#对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程" class="headerlink" title="对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程."></a>对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程.</h5><pre><code class="hljs java"><span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;
-    View view = mExtendViewCreater.generateView(activity, style);
-    <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;
-        viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);
-    &#125;
-&#125;</code></pre>
+<h4 id="7-完成View-View间的绑定关系-目前用于Banner-Indicator"><a href="#7-完成View-View间的绑定关系-目前用于Banner-Indicator" class="headerlink" title="7. 完成View-View间的绑定关系(目前用于Banner-Indicator)."></a>7. 完成View-View间的绑定关系(目前用于Banner-Indicator).</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * view创建完了.来做个绑定吧..可能内部存在啥联动之类的.比如banner和指示器</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">creatConections</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (mConnectionAbleArrayList.size() &gt; <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">for</span> (ConnectionAble connectionAble : mConnectionAbleArrayList) &#123;<br>            <span class="hljs-keyword">for</span> (ConnectionAble connectionAble2 : mConnectionAbleArrayList) &#123;<br>                <span class="hljs-keyword">if</span> (connectionAble != connectionAble2) &#123;<br>                    connectionAble.onConection(connectionAble2);<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>    mConnectionAbleArrayList.clear();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程"><a href="#对于动态渲染库不支持的type-会在第一步中调用设置的mExtendViewCreater来进行控件生成过程" class="headerlink" title="对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程."></a>对于动态渲染库不支持的type,会在第一步中调用设置的mExtendViewCreater来进行控件生成过程.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (viewHolder == <span class="hljs-keyword">null</span>) &#123;<br>    View view = mExtendViewCreater.generateView(activity, style);<br>    <span class="hljs-keyword">if</span> (view != <span class="hljs-keyword">null</span>) &#123;<br>        viewHolder = <span class="hljs-keyword">new</span> ExtendViewDecorator(view);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <hr>
@@ -445,15 +256,7 @@
 </blockquote>
 <p>在样式描述体中定义控件的某个属性和其取值对应路径,待外层拿到数据实体后,进行实时解析并设置给控件的过程,即<strong>动态绑定</strong>.</p>
 <p>动态绑定定义在ValueBinder接口中.</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DataBinder</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span>&gt; </span>&#123;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 给定view和数据源,尝试用内部的datePathMap进行解析,然后设置给view</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> view 当前view</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data 数据源</span>
-<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> listIndex 在列表中的index</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rendWithData</span><span class="hljs-params">(T view, JsonObject data, CommBridge commBridge,<span class="hljs-keyword">int</span> listIndex)</span></span>;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DataBinder</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span>&gt; </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 给定view和数据源,尝试用内部的datePathMap进行解析,然后设置给view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> view 当前view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data 数据源</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> listIndex 在列表中的index</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rendWithData</span><span class="hljs-params">(T view, JsonObject data, CommBridge commBridge,<span class="hljs-keyword">int</span> listIndex)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <p>其主要有两类实现:</p>

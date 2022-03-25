@@ -239,99 +239,26 @@
 
 
 <p>然而改成gradle编译通过后,发现demo中并没有看到有<strong>动态</strong>的能力.</p>
-<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
-&lt;YogaLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    xmlns:yoga=&quot;http://schemas.android.com/apk/res-auto&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;60dp&quot;
-    yoga:yg_flexDirection=&quot;row&quot;
-    yoga:yg_alignItems=&quot;center&quot;
-    &gt;
-  &lt;View
-      android:layout_width=&quot;50dp&quot;
-      android:layout_height=&quot;50dp&quot;
-      android:background=&quot;@color/yoga_blue&quot;
-      yoga:yg_flex=&quot;0&quot;
-      yoga:yg_marginAll=&quot;5dp&quot;
-      /&gt;
-  &lt;TextView
-      android:layout_width=&quot;wrap_content&quot;
-      android:layout_height=&quot;wrap_content&quot;
-      android:text=&quot;@string/child_1_text&quot;
-      yoga:yg_flex=&quot;0&quot;
-      /&gt;
-  &lt;TextView
-      android:layout_width=&quot;wrap_content&quot;
-      android:layout_height=&quot;wrap_content&quot;
-      android:text=&quot;@string/child_2_text&quot;
-      yoga:yg_flex=&quot;1&quot;
-      yoga:yg_marginHorizontal=&quot;5dp&quot;
-  /&gt;
-<span class="hljs-tag">&lt;/<span class="hljs-name">YogaLayout</span>&gt;</span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br>&lt;YogaLayout<br>    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;<br>    xmlns:yoga=&quot;http://schemas.android.com/apk/res-auto&quot;<br>    android:layout_width=&quot;match_parent&quot;<br>    android:layout_height=&quot;60dp&quot;<br>    yoga:yg_flexDirection=&quot;row&quot;<br>    yoga:yg_alignItems=&quot;center&quot;<br>    &gt;<br>  &lt;View<br>      android:layout_width=&quot;50dp&quot;<br>      android:layout_height=&quot;50dp&quot;<br>      android:background=&quot;@color/yoga_blue&quot;<br>      yoga:yg_flex=&quot;0&quot;<br>      yoga:yg_marginAll=&quot;5dp&quot;<br>      /&gt;<br>  &lt;TextView<br>      android:layout_width=&quot;wrap_content&quot;<br>      android:layout_height=&quot;wrap_content&quot;<br>      android:text=&quot;@string/child_1_text&quot;<br>      yoga:yg_flex=&quot;0&quot;<br>      /&gt;<br>  &lt;TextView<br>      android:layout_width=&quot;wrap_content&quot;<br>      android:layout_height=&quot;wrap_content&quot;<br>      android:text=&quot;@string/child_2_text&quot;<br>      yoga:yg_flex=&quot;1&quot;<br>      yoga:yg_marginHorizontal=&quot;5dp&quot;<br>  /&gt;<br><span class="hljs-tag">&lt;/<span class="hljs-name">YogaLayout</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>真正的实际使用中,不可能直接下发xml到客户端,所以还是需要通过源码看看有没有动态创建YogaLayout的方法.</p>
 <h3 id="干货-全网独家-使用YogaLayout做真正的动态化"><a href="#干货-全网独家-使用YogaLayout做真正的动态化" class="headerlink" title="干货!全网独家,使用YogaLayout做真正的动态化."></a>干货!全网独家,使用YogaLayout做真正的动态化.</h3><h4 id="YogaLayout的动态创建和属性配置"><a href="#YogaLayout的动态创建和属性配置" class="headerlink" title="YogaLayout的动态创建和属性配置"></a>YogaLayout的动态创建和属性配置</h4><p>Yoga其实是通过每个控件绑定的YogaNode来计算和保存位置信息,YogaLayout的node会在构造方法中自动创建,其动态创建和配置代码如下:</p>
-<pre><code class="hljs java"><span class="hljs-comment">//创建YogaLayout</span>
-YogaLayout yogaLayout = <span class="hljs-keyword">new</span> YogaLayout(<span class="hljs-keyword">this</span>);
-<span class="hljs-comment">//拿到内部Node进行容器配置</span>
-YogaNode yogaNode = yogaLayout.getYogaNode();
-yogaNode.setFlexDirection(YogaFlexDirection.ROW);
-<span class="hljs-comment">//将容器添加到现有的父组件</span>
-rootLayout.addView(yogaLayout,<span class="hljs-keyword">new</span> FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//创建YogaLayout</span><br>YogaLayout yogaLayout = <span class="hljs-keyword">new</span> YogaLayout(<span class="hljs-keyword">this</span>);<br><span class="hljs-comment">//拿到内部Node进行容器配置</span><br>YogaNode yogaNode = yogaLayout.getYogaNode();<br>yogaNode.setFlexDirection(YogaFlexDirection.ROW);<br><span class="hljs-comment">//将容器添加到现有的父组件</span><br>rootLayout.addView(yogaLayout,<span class="hljs-keyword">new</span> FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));<br></code></pre></td></tr></table></figure>
 
 <h4 id="Child的动态创建和属性配置"><a href="#Child的动态创建和属性配置" class="headerlink" title="Child的动态创建和属性配置"></a>Child的动态创建和属性配置</h4><p>Child也分YogaLayout和普通控件如TextView之类.但是观察源码得知:在加入YogaLayout的时候,会自动为其创建YogaNode.</p>
-<pre><code class="hljs java"><span class="hljs-keyword">if</span> (child <span class="hljs-keyword">instanceof</span> YogaLayout) &#123;
-  childNode = ((YogaLayout) child).getYogaNode();
-&#125; <span class="hljs-keyword">else</span> &#123;
-  <span class="hljs-keyword">if</span>(mYogaNodes.containsKey(child)) &#123;
-    childNode = mYogaNodes.get(child);
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    childNode = YogaNode.create();
-  &#125;
-
-  childNode.setData(child);
-  childNode.setMeasureFunction(<span class="hljs-keyword">new</span> ViewMeasureFunction());
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (child <span class="hljs-keyword">instanceof</span> YogaLayout) &#123;<br>  childNode = ((YogaLayout) child).getYogaNode();<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-keyword">if</span>(mYogaNodes.containsKey(child)) &#123;<br>    childNode = mYogaNodes.get(child);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    childNode = YogaNode.create();<br>  &#125;<br><br>  childNode.setData(child);<br>  childNode.setMeasureFunction(<span class="hljs-keyword">new</span> ViewMeasureFunction());<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>因此child的动态配置代码如下:</p>
-<pre><code class="hljs java"><span class="hljs-comment">//创建基本控件</span>
-textView1 = <span class="hljs-keyword">new</span> TextView(<span class="hljs-keyword">this</span>);
-textView1.setText(<span class="hljs-string">&quot;动态文案&quot;</span>);
-textView1.setGravity(Gravity.CENTER);
-textView1.setTextColor(Color.WHITE);
-textView1.setBackgroundColor(Color.RED);
-<span class="hljs-comment">//将控件添加到YogaLayout中</span>
-yogaLayout.addView(textView1, -<span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> YogaLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-        ViewGroup.LayoutParams.WRAP_CONTENT));
-<span class="hljs-comment">//得到控件对应的YogaNode</span>
-textNode1 = yogaLayout.getYogaNodeForView(textView1);
-<span class="hljs-comment">//设置Flex属性</span>
-textNode1.setFlex(<span class="hljs-number">1</span>);
-textNode1.setAlignSelf(YogaAlign.CENTER);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//创建基本控件</span><br>textView1 = <span class="hljs-keyword">new</span> TextView(<span class="hljs-keyword">this</span>);<br>textView1.setText(<span class="hljs-string">&quot;动态文案&quot;</span>);<br>textView1.setGravity(Gravity.CENTER);<br>textView1.setTextColor(Color.WHITE);<br>textView1.setBackgroundColor(Color.RED);<br><span class="hljs-comment">//将控件添加到YogaLayout中</span><br>yogaLayout.addView(textView1, -<span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> YogaLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,<br>        ViewGroup.LayoutParams.WRAP_CONTENT));<br><span class="hljs-comment">//得到控件对应的YogaNode</span><br>textNode1 = yogaLayout.getYogaNodeForView(textView1);<br><span class="hljs-comment">//设置Flex属性</span><br>textNode1.setFlex(<span class="hljs-number">1</span>);<br>textNode1.setAlignSelf(YogaAlign.CENTER);<br></code></pre></td></tr></table></figure>
 <p>这里和传统的ViewGroup+LayoutParams稍有不同的是,<strong>YogaNode必须在被添加进父容器后再从父容器获取</strong>.<br>当然YogaLayout也提供了addView(View child, YogaNode node)这样的方法,可以用类似传统方式把child和node一起加进去,但是需要对YogaNode做一些本在addView(View child, int index, ViewGroup.LayoutParams params)中自动完成的操作,比较麻烦,这里就不赘述了.</p>
 <h4 id="如何在渲染完成之后-动态修改控件的布局"><a href="#如何在渲染完成之后-动态修改控件的布局" class="headerlink" title="如何在渲染完成之后,动态修改控件的布局"></a>如何在渲染完成之后,动态修改控件的布局</h4><p>看完前面的,已经可以完成静态渲染了,然后在原生开发中,不可避免的要将其用于列表中,总所周知,列表的item是复用的,那么YogaLayout能否二次修改其内部布局呢?</p>
 <p>这部分研究花了较长时间,甚至在尝试对交叉轴方向容器大小进行动态修改时一度认为YogaLayout存在问题.</p>
 <p>直接上结论吧:</p>
-<h5 id="对于YogaLayout内部元素的尺寸进行二次修改-使用YogaLayout-invalidate-View-view-方法"><a href="#对于YogaLayout内部元素的尺寸进行二次修改-使用YogaLayout-invalidate-View-view-方法" class="headerlink" title="对于YogaLayout内部元素的尺寸进行二次修改.使用YogaLayout.invalidate(View view)方法."></a>对于YogaLayout内部元素的尺寸进行二次修改.使用YogaLayout.invalidate(View view)方法.</h5><pre><code class="hljs java">findViewById(R.id.button1).setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() &#123;
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>&#123;
-        textView1.setText(<span class="hljs-string">&quot;文案动态修改,加长&quot;</span>);
-        yogaLayout.invalidate(textView1);
-    &#125;
-&#125;);</code></pre>
+<h5 id="对于YogaLayout内部元素的尺寸进行二次修改-使用YogaLayout-invalidate-View-view-方法"><a href="#对于YogaLayout内部元素的尺寸进行二次修改-使用YogaLayout-invalidate-View-view-方法" class="headerlink" title="对于YogaLayout内部元素的尺寸进行二次修改.使用YogaLayout.invalidate(View view)方法."></a>对于YogaLayout内部元素的尺寸进行二次修改.使用YogaLayout.invalidate(View view)方法.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">findViewById(R.id.button1).setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>&#123;<br>        textView1.setText(<span class="hljs-string">&quot;文案动态修改,加长&quot;</span>);<br>        yogaLayout.invalidate(textView1);<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
 <p>哪个元素的内容发生了变化,就调用其parent的invalidate方法.由于其内部实际上是将其node标记为dirty,所以并不用担心性能问题.</p>
 <h5 id="YogaLayout内部元素变更后-对YogaLayout自身的尺寸进行自动适应-需要将YogaLayout的宽高设置为Float-NaN"><a href="#YogaLayout内部元素变更后-对YogaLayout自身的尺寸进行自动适应-需要将YogaLayout的宽高设置为Float-NaN" class="headerlink" title="YogaLayout内部元素变更后,对YogaLayout自身的尺寸进行自动适应.需要将YogaLayout的宽高设置为Float.NaN."></a>YogaLayout内部元素变更后,对YogaLayout自身的尺寸进行自动适应.需要将YogaLayout的宽高设置为Float.NaN.</h5><p>举个例子:<br>YogaLayout内部的TextView文字大小发生了变化.导致YogaLayout的高度也要跟着变大.此时使用YogaLayout.invalidate(View view)方法仅能将textview的尺寸变大,yogaLayout自身并不会撑高.</p>
 
 <p>尝试了包括invalidate,requestLayout,calculateLayout等无数方法,都无法改变最外层YogaLayout的高度.<br>最后发现:将YogaLayout高度设置为Float.NaN即可让其重新计算…</p>
-<pre><code class="hljs java">findViewById(R.id.button1).setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() &#123;
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>&#123;
-        textView1.setTextSize(<span class="hljs-number">30</span>);
-        yogaLayout.invalidate(textView1);
-        yogaLayout.getYogaNode().setHeight(Float.NaN);
-        yogaLayout.getYogaNode().setWidth(Float.NaN);
-    &#125;
-&#125;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">findViewById(R.id.button1).setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>&#123;<br>        textView1.setTextSize(<span class="hljs-number">30</span>);<br>        yogaLayout.invalidate(textView1);<br>        yogaLayout.getYogaNode().setHeight(Float.NaN);<br>        yogaLayout.getYogaNode().setWidth(Float.NaN);<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
 
 <p>—–<br>自此,已经可以完成基于YogaLayout的动态渲染.然而这只是UI部分,完整的渲染还需要进行数据绑定.这一部分涉及UI描述文件结构的定义,通过data相对路径+view绑定binder来实现.因篇幅过长,就不介绍了.</p>
 

@@ -217,34 +217,11 @@
             
             <div class="markdown-body">
               <p>先看这道题目.</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-        Integer a = <span class="hljs-number">10</span>, b = <span class="hljs-number">20</span>;
-        System.out.println(<span class="hljs-string">&quot;before a=&quot;</span> + a + <span class="hljs-string">&quot;,b=&quot;</span> + b);
-        swap(a, b);
-        System.out.println(<span class="hljs-string">&quot;after a=&quot;</span> + a + <span class="hljs-string">&quot;,b=&quot;</span> + b);
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(Integer i1, Integer i2)</span> </span>&#123;
-        <span class="hljs-comment">//编程实现两个数字进行交换</span>
-
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Integer a = <span class="hljs-number">10</span>, b = <span class="hljs-number">20</span>;<br>        System.out.println(<span class="hljs-string">&quot;before a=&quot;</span> + a + <span class="hljs-string">&quot;,b=&quot;</span> + b);<br>        swap(a, b);<br>        System.out.println(<span class="hljs-string">&quot;after a=&quot;</span> + a + <span class="hljs-string">&quot;,b=&quot;</span> + b);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(Integer i1, Integer i2)</span> </span>&#123;<br>        <span class="hljs-comment">//编程实现两个数字进行交换</span><br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>方法传递的是引用,Integer是java中对于int基本类型的封装类.这个类貌似并没有setXXX这样的方法来改变内部的某个值.</p>
 <p>好吧.阅读Integer源码得知,其内部有个私有的value变量.于是反射修改之.</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(Integer i1, Integer i2)</span> </span>&#123;
-        <span class="hljs-keyword">try</span> &#123;
-            Field f = Integer.class.getDeclaredField(<span class="hljs-string">&quot;value&quot;</span>);
-            f.setAccessible(<span class="hljs-keyword">true</span>);
-            f.set(i1, <span class="hljs-number">20</span>);
-            f.set(i2, <span class="hljs-number">10</span>);
-        &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException e) &#123;
-            e.printStackTrace();
-        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;
-            e.printStackTrace();
-        &#125;
-    &#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(Integer i1, Integer i2)</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Field f = Integer.class.getDeclaredField(<span class="hljs-string">&quot;value&quot;</span>);<br>            f.setAccessible(<span class="hljs-keyword">true</span>);<br>            f.set(i1, <span class="hljs-number">20</span>);<br>            f.set(i2, <span class="hljs-number">10</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <p>运行一下:</p>
 <blockquote>
@@ -255,52 +232,23 @@
 <p>1.反射时,set参数接收的是Object类型,此处传入int,会将基本类型转换为包装类型即Integer.(很重要)</p>
 <p>2.第二个参数在调用处传的是10,此处变成了一个intvalue为20的Integer对象.(???)</p>
 <p>这里有一个知识点—-Integer中的IntegerCache:</p>
-<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerCache</span> </span>&#123;
-        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> low = -<span class="hljs-number">128</span>;
-        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> high;
-        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Integer cache[];
-
-        <span class="hljs-keyword">static</span> &#123;
-            <span class="hljs-comment">// high value may be configured by property</span>
-            <span class="hljs-keyword">int</span> h = <span class="hljs-number">127</span>;
-            String integerCacheHighPropValue =
-                sun.misc.VM.getSavedProperty(<span class="hljs-string">&quot;java.lang.Integer.IntegerCache.high&quot;</span>);
-            <span class="hljs-keyword">if</span> (integerCacheHighPropValue != <span class="hljs-keyword">null</span>) &#123;
-                <span class="hljs-keyword">int</span> i = parseInt(integerCacheHighPropValue);
-                i = Math.max(i, <span class="hljs-number">127</span>);
-                <span class="hljs-comment">// Maximum array size is Integer.MAX_VALUE</span>
-                h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="hljs-number">1</span>);
-            &#125;
-            high = h;
-
-            cache = <span class="hljs-keyword">new</span> Integer[(high - low) + <span class="hljs-number">1</span>];
-            <span class="hljs-keyword">int</span> j = low;
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &amp;lt; cache.length; k++)
-                cache[k] = <span class="hljs-keyword">new</span> Integer(j++);
-        &#125;
-
-        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">IntegerCache</span><span class="hljs-params">()</span> </span>&#123;&#125;
-    &#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerCache</span> </span>&#123;<br>        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> low = -<span class="hljs-number">128</span>;<br>        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> high;<br>        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Integer cache[];<br><br>        <span class="hljs-keyword">static</span> &#123;<br>            <span class="hljs-comment">// high value may be configured by property</span><br>            <span class="hljs-keyword">int</span> h = <span class="hljs-number">127</span>;<br>            String integerCacheHighPropValue =<br>                sun.misc.VM.getSavedProperty(<span class="hljs-string">&quot;java.lang.Integer.IntegerCache.high&quot;</span>);<br>            <span class="hljs-keyword">if</span> (integerCacheHighPropValue != <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">int</span> i = parseInt(integerCacheHighPropValue);<br>                i = Math.max(i, <span class="hljs-number">127</span>);<br>                <span class="hljs-comment">// Maximum array size is Integer.MAX_VALUE</span><br>                h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="hljs-number">1</span>);<br>            &#125;<br>            high = h;<br><br>            cache = <span class="hljs-keyword">new</span> Integer[(high - low) + <span class="hljs-number">1</span>];<br>            <span class="hljs-keyword">int</span> j = low;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &amp;lt; cache.length; k++)<br>                cache[k] = <span class="hljs-keyword">new</span> Integer(j++);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">IntegerCache</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <p>简单来说,为了防止在int类型自动装箱拆箱过程中频繁的new Integer(),Interger内部使用IntegerCache类建立了一个默认255长度的缓存池.初始化时就会生成-128~127之间对应的所有Integer对象.</p>
 <p>什么时候使用这个缓存呢?调用Integer.valueOf()方法的时候.</p>
 <p>什么时候调用这个方法?Integer i = 10;这样写,系统自动装箱的时候.</p>
 <p>而真正的new Integer()方法则才是创建一个新的对象,并将内部的value值赋值为构造方法传入的值.</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Integer</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.value = value;
-    &#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Integer</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.value = value;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <p>那么现在重新分析一下前面的代码.</p>
-<pre><code class="hljs java">Integer a = <span class="hljs-number">10</span>, b = <span class="hljs-number">20</span>;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer a = <span class="hljs-number">10</span>, b = <span class="hljs-number">20</span>;<br></code></pre></td></tr></table></figure>
 
 <p>//从缓存中找到指定位置的两个Integer对象,a,b分别指向这两个对象.</p>
 <p>//为方便后面描述,暂忽略负数部分.假定a指向第10个位置,b指向第20个位置.</p>
-<pre><code class="hljs java">Field f = Integer.class.getDeclaredField(<span class="hljs-string">&quot;value&quot;</span>);
-f.setAccessible(<span class="hljs-keyword">true</span>);
-f.set(i1, <span class="hljs-number">20</span>);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Field f = Integer.class.getDeclaredField(<span class="hljs-string">&quot;value&quot;</span>);<br>f.setAccessible(<span class="hljs-keyword">true</span>);<br>f.set(i1, <span class="hljs-number">20</span>);<br></code></pre></td></tr></table></figure>
 
 <p>//此处将第10个位置的Integer对象内部的value设置为20.(WTF…这里会造成很大的问题…)</p>
-<pre><code class="hljs java">f.set(i2,<span class="hljs-number">10</span>);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">f.set(i2,<span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
 
 <p>//这里首先会将10进行自动装箱.实际上就是调用Integer.valueOf(10),进而从IntegerCache中找第10个对象.</p>
 <p>//but,第10个对象内部的value还是10么?被上一步改成20了…</p>
@@ -316,8 +264,7 @@ f.set(i1, <span class="hljs-number">20</span>);</code></pre>
 <p>使用f.set(i2, new Integer(10));搞定!</p>
 <p><strong>这个题目其实很坑,因为这样的解法只是为了考验对Integer内部缓存的理解.实际情况中使用这个绝对会得不偿失,带来莫名其妙的问题.</strong></p>
 <p>比如,后面跟着这样写:</p>
-<pre><code class="hljs java">Integer c = <span class="hljs-number">10</span>;
-System.out.println(c);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer c = <span class="hljs-number">10</span>;<br>System.out.println(c);<br></code></pre></td></tr></table></figure>
 
 <p>可以看看打印结果…wtf</p>
 

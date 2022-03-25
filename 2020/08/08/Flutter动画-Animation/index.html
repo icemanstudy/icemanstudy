@@ -218,18 +218,11 @@
             <div class="markdown-body">
               <h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><h5 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h5><p>动画类,用于获取动画当前的值和状态.</p>
 <h5 id="Tween"><a href="#Tween" class="headerlink" title="Tween"></a>Tween</h5><p>定义动画值的范围.其默认单位是double,同时也有Tween的不同子类,用于定义不同的动画值类型(例如颜色,对齐方式).  </p>
-<pre><code class="hljs reasonml">animation1 = <span class="hljs-keyword">new</span> Tween&lt;double&gt;(<span class="hljs-keyword">begin</span>: <span class="hljs-number">100</span>, <span class="hljs-keyword">end</span>: <span class="hljs-number">300</span>);
-animation2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ColorTween(<span class="hljs-params">begin</span>: Colors.<span class="hljs-params">transparent</span>, <span class="hljs-params">end</span>: Colors.<span class="hljs-params">black54</span>)</span>;</code></pre>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">animation1 = <span class="hljs-keyword">new</span> Tween&lt;double&gt;(<span class="hljs-keyword">begin</span>: <span class="hljs-number">100</span>, <span class="hljs-keyword">end</span>: <span class="hljs-number">300</span>);<br>animation2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ColorTween(<span class="hljs-params">begin</span>: Colors.<span class="hljs-params">transparent</span>, <span class="hljs-params">end</span>: Colors.<span class="hljs-params">black54</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 
 <h5 id="Curve"><a href="#Curve" class="headerlink" title="Curve"></a>Curve</h5><p>定义Tween的变化速度.类似Interpolator.</p>
-<pre><code class="hljs aspectj"><span class="hljs-meta">@override</span>
-  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">transform</span><span class="hljs-params">(<span class="hljs-keyword">double</span> t)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (t == <span class="hljs-number">0.0</span> || t == <span class="hljs-number">1.0</span>) &#123;
-      <span class="hljs-keyword">return</span> t;
-    &#125;
-    <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">transform</span><span class="hljs-params">(t)</span></span>;
-  &#125;</code></pre>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@override</span><br>  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">transform</span><span class="hljs-params">(<span class="hljs-keyword">double</span> t)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (t == <span class="hljs-number">0.0</span> || t == <span class="hljs-number">1.0</span>) &#123;<br>      <span class="hljs-keyword">return</span> t;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">transform</span><span class="hljs-params">(t)</span></span>;<br>  &#125;<br></code></pre></td></tr></table></figure>
 
 
 <h5 id="AnimationController"><a href="#AnimationController" class="headerlink" title="AnimationController"></a>AnimationController</h5><p>继承自Animation的特殊动画,有两个特征:</p>
@@ -237,10 +230,10 @@ animation2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor
 <li>内部包含一个从0~1的动画取值范围.</li>
 <li>具备控制动画的方法,例如forward,reverse方法和指定动画时长.  </li>
 </ul>
-<pre><code class="hljs groovy">controller = <span class="hljs-keyword">new</span> AnimationController(<span class="hljs-attr">duration:</span> Duration(<span class="hljs-attr">milliseconds:</span> <span class="hljs-number">2000</span>), <span class="hljs-attr">vsync:</span> <span class="hljs-built_in">this</span>);</code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs groovy">controller = <span class="hljs-keyword">new</span> AnimationController(<span class="hljs-attr">duration:</span> Duration(<span class="hljs-attr">milliseconds:</span> <span class="hljs-number">2000</span>), <span class="hljs-attr">vsync:</span> <span class="hljs-built_in">this</span>);<br></code></pre></td></tr></table></figure>
 <p>vsync参数:通常是混入SingleTickerProviderStateMixin类的某个widget,当该widget不显示时,动画暂停,widget显示时,动画恢复执行,用于避免动画相关UI不在屏幕时消耗资源.</p>
 <h5 id="CurvedAnimation"><a href="#CurvedAnimation" class="headerlink" title="CurvedAnimation"></a>CurvedAnimation</h5><p>另一个继承自Animation的特殊动画,比较方便的指定Tween的变化速度.  </p>
-<pre><code class="hljs reasonml">curvedAnimation = <span class="hljs-keyword">new</span> <span class="hljs-constructor">CurvedAnimation(<span class="hljs-params">parent</span>: <span class="hljs-params">controller</span>,<span class="hljs-params">curve</span>: Curves.<span class="hljs-params">easeInOutBack</span>)</span>;</code></pre>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">curvedAnimation = <span class="hljs-keyword">new</span> <span class="hljs-constructor">CurvedAnimation(<span class="hljs-params">parent</span>: <span class="hljs-params">controller</span>,<span class="hljs-params">curve</span>: Curves.<span class="hljs-params">easeInOutBack</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 <h3 id="Flutter中的动画"><a href="#Flutter中的动画" class="headerlink" title="Flutter中的动画"></a>Flutter中的动画</h3><p>动画本质上是控件的某个样式属性,按照一定的规则进行变化.<br>Flutter中将该属性的取值,变化范围和变化速度分开定义,最终组合成动画.</p>
 <h3 id="动画实现方式"><a href="#动画实现方式" class="headerlink" title="动画实现方式"></a>动画实现方式</h3><h4 id="基本实现方式"><a href="#基本实现方式" class="headerlink" title="基本实现方式"></a>基本实现方式</h4><p>步骤:</p>
@@ -252,55 +245,17 @@ animation2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor
 <li>在控件属性上应用</li>
 </ol>
 <p>获取动画状态和进度的方式  </p>
-<pre><code class="hljs reasonml">animation
-      ..add<span class="hljs-constructor">StatusListener((<span class="hljs-params">status</span>)</span> &#123;
-        print(<span class="hljs-string">&quot;animation当前状态:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
-      &#125;)
-      ..add<span class="hljs-constructor">Listener(()</span> &#123;
-        print(<span class="hljs-string">&quot;animation当前值:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
-      &#125;);</code></pre>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">animation<br>      ..add<span class="hljs-constructor">StatusListener((<span class="hljs-params">status</span>)</span> &#123;<br>        print(<span class="hljs-string">&quot;animation当前状态:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<br>      &#125;)<br>      ..add<span class="hljs-constructor">Listener(()</span> &#123;<br>        print(<span class="hljs-string">&quot;animation当前值:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<br>      &#125;);<br></code></pre></td></tr></table></figure>
 
 <p>在创建Widget时,使用动画当前值作为属性值.</p>
-<pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(
-<span class="hljs-symbol">  child:</span> Image(
-<span class="hljs-symbol">    image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),
-<span class="hljs-symbol">    width:</span> animation.value,
-<span class="hljs-symbol">    height:</span> animation.value,
-<span class="hljs-symbol">    fit:</span> BoxFit.fill,
-  ),
-)</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(<br><span class="hljs-symbol">  child:</span> Image(<br><span class="hljs-symbol">    image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),<br><span class="hljs-symbol">    width:</span> animation.value,<br><span class="hljs-symbol">    height:</span> animation.value,<br><span class="hljs-symbol">    fit:</span> BoxFit.fill,<br>  ),<br>)<br></code></pre></td></tr></table></figure>
 <p>启动动画,在动画值发生变化时,调用StatefulWidget对应State的setState方法,触发Widget的重新build.使其刷新样式.</p>
-<pre><code class="hljs reasonml">controller.forward<span class="hljs-literal">()</span>;
-animation
-  ..add<span class="hljs-constructor">Listener(()</span> &#123;
-    set<span class="hljs-constructor">State(()</span> &#123;
-      print(<span class="hljs-string">&quot;animation当前值:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
-    &#125;);
-  &#125;);</code></pre>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">controller.forward<span class="hljs-literal">()</span>;<br>animation<br>  ..add<span class="hljs-constructor">Listener(()</span> &#123;<br>    set<span class="hljs-constructor">State(()</span> &#123;<br>      print(<span class="hljs-string">&quot;animation当前值:&quot;</span> + animation.value.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<br>    &#125;);<br>  &#125;);<br></code></pre></td></tr></table></figure>
 <p>注意:<br>在控件被移除时,将动画释放,防止内存泄漏.</p>
-<pre><code class="hljs typescript"><span class="hljs-meta">@override</span>
-<span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">dispose</span>(<span class="hljs-params"></span>)</span> &#123;
-  <span class="hljs-built_in">super</span>.dispose();
-  controller.dispose();
-&#125;</code></pre>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@override</span><br><span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">dispose</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">super</span>.dispose();<br>  controller.dispose();<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="使用AnimatedWidget控件实现"><a href="#使用AnimatedWidget控件实现" class="headerlink" title="使用AnimatedWidget控件实现"></a>使用AnimatedWidget控件实现</h4><p>系统提供继承自StatefullWidget的AnimatedWidget控件来自动完成addStateListener并在值变化时调用setState的方法.</p>
-<pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnimatedImage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AnimatedWidget</span> </span>&#123;
-  <span class="hljs-type">AnimatedImage</span>(&#123;<span class="hljs-type">Key</span> key, <span class="hljs-type">Animation</span>&lt;double&gt; animation&#125;)
-      : <span class="hljs-keyword">super</span>(key: key, listenable: animation);
-
-  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;
-    <span class="hljs-keyword">final</span> <span class="hljs-type">Animation</span>&lt;double&gt; animation = listenable;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Center</span>(
-      child: <span class="hljs-type">Image</span>(
-          image: <span class="hljs-type">AssetImage</span>(<span class="hljs-string">&quot;images/pig.png&quot;</span>),
-          width: animation.value,
-          height: animation.value,
-          fit: <span class="hljs-type">BoxFit</span>.fill,
-        )
-    );
-  &#125;
-&#125;</code></pre>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnimatedImage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AnimatedWidget</span> </span>&#123;<br>  <span class="hljs-type">AnimatedImage</span>(&#123;<span class="hljs-type">Key</span> key, <span class="hljs-type">Animation</span>&lt;double&gt; animation&#125;)<br>      : <span class="hljs-keyword">super</span>(key: key, listenable: animation);<br><br>  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;<br>    <span class="hljs-keyword">final</span> <span class="hljs-type">Animation</span>&lt;double&gt; animation = listenable;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Center</span>(<br>      child: <span class="hljs-type">Image</span>(<br>          image: <span class="hljs-type">AssetImage</span>(<span class="hljs-string">&quot;images/pig.png&quot;</span>),<br>          width: animation.value,<br>          height: animation.value,<br>          fit: <span class="hljs-type">BoxFit</span>.fill,<br>        )<br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>构建时传入动画变量,并在内部build方法中使用动画值来创建控件.这样动画在执行时会自动调用setState进而触发build方法重新构建控件.</p>
 <h4 id="职责分离"><a href="#职责分离" class="headerlink" title="职责分离"></a>职责分离</h4><p>在上述例子中,动画直接植入到控件的build方法中,其child的生成关联在一起.然而实际使用中控件自身的动画应该与其child的展示<strong>解耦</strong>.该控件应该可以在<strong>接收任何child</strong>的同时,正常展示指定动画. </p>
 <p>职责分离:</p>
@@ -310,40 +265,13 @@ animation
 <li>渲染过渡效果</li>
 </ul>
 <p>AnimatedBuilder继承自AnimatedWidget,在其内部执行addStateListener和setState操作的同时,使用build参数将child做透传,使动画应用于child的构建完全隔离.</p>
-<pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageTransition</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
-  <span class="hljs-type">ImageTransition</span>(&#123;<span class="hljs-keyword">this</span>.child, <span class="hljs-keyword">this</span>.animation&#125;);
-
-  <span class="hljs-keyword">final</span> <span class="hljs-type">Widget</span> child;
-  <span class="hljs-keyword">final</span> <span class="hljs-type">Animation</span>&lt;double&gt; animation;
-
-  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Center</span>(
-      child: <span class="hljs-keyword">new</span> <span class="hljs-type">AnimatedBuilder</span>(
-          animation: animation,
-          builder: (<span class="hljs-type">BuildContext</span> context, <span class="hljs-type">Widget</span> child) &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Container</span>(
-                height: animation.value, width: animation.value, child: child);
-          &#125;,
-          child: child),
-    );
-  &#125;
-&#125;</code></pre>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageTransition</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;<br>  <span class="hljs-type">ImageTransition</span>(&#123;<span class="hljs-keyword">this</span>.child, <span class="hljs-keyword">this</span>.animation&#125;);<br><br>  <span class="hljs-keyword">final</span> <span class="hljs-type">Widget</span> child;<br>  <span class="hljs-keyword">final</span> <span class="hljs-type">Animation</span>&lt;double&gt; animation;<br><br>  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Center</span>(<br>      child: <span class="hljs-keyword">new</span> <span class="hljs-type">AnimatedBuilder</span>(<br>          animation: animation,<br>          builder: (<span class="hljs-type">BuildContext</span> context, <span class="hljs-type">Widget</span> child) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Container</span>(<br>                height: animation.value, width: animation.value, child: child);<br>          &#125;,<br>          child: child),<br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="系统预置的动画控件"><a href="#系统预置的动画控件" class="headerlink" title="系统预置的动画控件"></a>系统预置的动画控件</h4><p>针对常用动画,系统提供了一系列继承自AnimatedWidget的控件来方便开发者实现.例如ScaleTransition,FadeTransition.</p>
 <p>例如缩放动画,只用ScaleTransition包装,并指定动画值来源即可.</p>
-<pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(
-<span class="hljs-symbol">    child:</span> ScaleTransition(
-<span class="hljs-symbol">        scale:</span> animation,
-<span class="hljs-symbol">        child:</span> Image(
-<span class="hljs-symbol">          image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),
-        ))),</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(<br><span class="hljs-symbol">    child:</span> ScaleTransition(<br><span class="hljs-symbol">        scale:</span> animation,<br><span class="hljs-symbol">        child:</span> Image(<br><span class="hljs-symbol">          image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),<br>        ))),<br></code></pre></td></tr></table></figure>
 <p>透明度动画同理:  </p>
-<pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(
-<span class="hljs-symbol">    child:</span> FadeTransition(
-<span class="hljs-symbol">        opacity:</span> animation,
-<span class="hljs-symbol">        child:</span> Image(
-<span class="hljs-symbol">          image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),
-        ))),</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">body:</span> Center(<br><span class="hljs-symbol">    child:</span> FadeTransition(<br><span class="hljs-symbol">        opacity:</span> animation,<br><span class="hljs-symbol">        child:</span> Image(<br><span class="hljs-symbol">          image:</span> AssetImage(<span class="hljs-string">&quot;images/pig.png&quot;</span>),<br>        ))),<br></code></pre></td></tr></table></figure>
 
 
 
