@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.7k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      18
        分钟
     </span>
   
@@ -281,6 +281,9 @@
 <blockquote>
 <p>注意:dom更新和UI渲染不是一回事.dom更新可以同步进行.UI渲染则要等到一次宏任务执行完毕.</p>
 </blockquote>
+<h4 id="一些常用回调和事件"><a href="#一些常用回调和事件" class="headerlink" title="一些常用回调和事件:"></a>一些常用回调和事件:</h4><h5 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h5><p>浏览器在下次渲染（UI render）之前调用指定的回调函数更新动画。 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次渲染之前执行</p>
+<h5 id="渲染（UI-render）"><a href="#渲染（UI-render）" class="headerlink" title="渲染（UI render）"></a>渲染（UI render）</h5><p>一轮事件循环执行结束之后，下轮事件循环执行之前开始进行 UI render。 即：macro-task 任务执行完毕，接着执行完所有的 micro-task 任务后， 此时本轮循环结束，如果要执行 UI render，先调用requestAnimationFrame, 然后执行 UI render。UI render 完毕之后接着进行下一轮循环;</p>
+<h5 id="requestIdleCallback"><a href="#requestIdleCallback" class="headerlink" title="requestIdleCallback"></a>requestIdleCallback</h5><p>requestIdleCallback 会在每次 检查是否要渲染（check） 结束, 发现距离下一帧的刷新还有时间， 就执行一下这个。如果时间不够，就下一帧再说。</p>
 <p>总结:</p>
 <ul>
 <li>异步任务都是通过队列来完成.不止js,几乎所有GUI程序的渲染主进程都是这样.</li>
@@ -288,6 +291,7 @@
 <li>宏任务是宿主环境创建的任务,微任务是js引擎创建的任务.</li>
 <li>js引擎将微任务队列中的任务放在某个循环周期内一次执行完成,提供更加灵活的任务调度机制.</li>
 <li>vue通过队列将dom更新事件去重与合并,并通过微任务在下次渲染前执行.</li>
+<li>micro-task 结束 -&gt; requestAnimationFrame -&gt; requestIdleCallback -&gt; UI render</li>
 </ul>
 
             </div>
