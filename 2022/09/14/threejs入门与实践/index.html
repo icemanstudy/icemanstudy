@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar/icon.png">
+  <link rel="icon" href="/img/avatar/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="快速上手3D可视化开发">
+  <meta name="author" content="iceman">
+  <meta name="keywords" content="">
+  
+  <title>threejs入门与实践 - iceman&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"icemanbin.gitee.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":88,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>iceman's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="threejs入门与实践">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-14 15:09" pubdate>
+        2022年9月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">threejs入门与实践</h1>
+            
+            <div class="markdown-body">
+              <p><img src="https://res.cloudinary.com/xubingok/image/upload/v1663314957/blog/792bf1b743a07018f8cf233cb8f916e8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="相关技术简介"><a href="#相关技术简介" class="headerlink" title="相关技术简介"></a>相关技术简介</h3><h4 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas:"></a>Canvas:</h4><p>作为html元素存在.提供渲染上下文用于手动绘制需要展示的内容.</p>
+<h4 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h4><p>一套规范,定义了一系列操作和显示图形的API.显卡厂家通过驱动的方式,来将对应的API调用转化为GPU指令.</p>
+<h4 id="WebGL"><a href="#WebGL" class="headerlink" title="WebGL"></a>WebGL</h4><p>一种3D绘图协议.浏览器支持后,可以通过JavaScript调用本地OpenGL接口,从而在浏览器提供硬件3D加速渲染.</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGLRenderingContext">https://developer.mozilla.org/zh-CN/docs/Web/API/WebGLRenderingContext</a></p>
+<h4 id="ThreeJs"><a href="#ThreeJs" class="headerlink" title="ThreeJs"></a>ThreeJs</h4><p>基于WebGL封装运行的三维引擎,封装了一些3D渲染需求中重要的工具方法与渲染循环.<br><a target="_blank" rel="noopener" href="http://www.webgl3d.cn/Three.js/">http://www.webgl3d.cn/Three.js/</a></p>
+<h3 id="3D渲染常用概念"><a href="#3D渲染常用概念" class="headerlink" title="3D渲染常用概念"></a>3D渲染常用概念</h3><h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>虚拟的三维世界,包含需要绘制的所有元素和参与绘制的工具.</p>
+<h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><p>待绘制的元素以模型存在于场景中.<br>每一个模型由几何体和材质组成.</p>
+<h4 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h4><p>三维场景在二维的投影会受到视角影响.<br>通过相机位置和方向的定义,来确定最终渲染的结果.</p>
+<h4 id="渲染器"><a href="#渲染器" class="headerlink" title="渲染器"></a>渲染器</h4><p>根据场景和相机,将二维结果渲染到浏览器canvas上.</p>
+<h4 id="场景概览"><a href="#场景概览" class="headerlink" title="场景概览"></a>场景概览</h4><h4 id="最简单的场景实现"><a href="#最简单的场景实现" class="headerlink" title="最简单的场景实现:"></a>最简单的场景实现:</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;threejs_root&quot;</span> style=<span class="hljs-string">&quot;height: 100%;width: 100%&quot;</span>&gt;<br>    &lt;canvas <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;cell_canvas&quot;</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;canvas&quot;</span>&gt;&lt;/canvas&gt;<br>&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const root = document.get<span class="hljs-constructor">ElementById(&#x27;<span class="hljs-params">threejs_root</span>&#x27;)</span><br>const canvas = document.get<span class="hljs-constructor">ElementById(&#x27;<span class="hljs-params">cell_canvas</span>&#x27;)</span><br><span class="hljs-comment">//创建场景</span><br>var scene = <span class="hljs-keyword">new</span> THREE.<span class="hljs-constructor">Scene()</span>;<br><span class="hljs-comment">//设置相机</span><br>var width = root.clientWidth; <span class="hljs-comment">//窗口宽度</span><br>var height = root.clientHeight; <span class="hljs-comment">//窗口高度</span><br>const camera = <span class="hljs-keyword">new</span> THREE.<span class="hljs-constructor">PerspectiveCamera(45, <span class="hljs-params">width</span> <span class="hljs-operator">/</span> <span class="hljs-params">height</span>, 1, 5000)</span>;<br>camera.position.set(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>); <span class="hljs-comment">//设置相机位置</span><br>camera.look<span class="hljs-constructor">At(<span class="hljs-params">scene</span>.<span class="hljs-params">position</span>)</span>; <span class="hljs-comment">//设置相机方向(指向的场景对象)</span><br><span class="hljs-comment">//设置渲染器</span><br>const renderer = <span class="hljs-keyword">new</span> THREE.<span class="hljs-constructor">WebGLRenderer(&#123;<span class="hljs-params">canvas</span>, <span class="hljs-params">antialias</span>: <span class="hljs-params">true</span>&#125;)</span>;<br>renderer.set<span class="hljs-constructor">Size(<span class="hljs-params">width</span>, <span class="hljs-params">height</span>)</span>;<span class="hljs-comment">//设置渲染区域尺寸</span><br>renderer.set<span class="hljs-constructor">ClearColor(0xb9d3ff, 1)</span>; <span class="hljs-comment">//设置背景颜色</span><br><span class="hljs-comment">//开始渲染</span><br>renderer.render(scene, camera);<br></code></pre></td></tr></table></figure>
+<h4 id="增加坐标轴"><a href="#增加坐标轴" class="headerlink" title="增加坐标轴"></a>增加坐标轴</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">const</span> axes = <span class="hljs-keyword">new</span> THREE.AxesHelper(<span class="hljs-number">20000</span>)<br>axes.setColors(<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>)<br>scene.<span class="hljs-keyword">add</span>(axes)<br></code></pre></td></tr></table></figure>
+<h4 id="支持鼠标联动"><a href="#支持鼠标联动" class="headerlink" title="支持鼠标联动"></a>支持鼠标联动</h4><p>将鼠标拖动,滚动转化为相机数据,实时更新渲染结果.</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const controls = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OrbitControls(<span class="hljs-params">camera</span>, <span class="hljs-params">canvas</span>)</span>;<span class="hljs-comment">//创建控件对象</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="放置模型"><a href="#放置模型" class="headerlink" title="放置模型"></a>放置模型</h4><h5 id="简单的长方体"><a href="#简单的长方体" class="headerlink" title="简单的长方体."></a>简单的长方体.</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> THREE.BoxGeometry( <span class="hljs-number">100</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span> );<span class="hljs-comment">//创建立方几何体</span><br><span class="hljs-keyword">const</span> material = <span class="hljs-keyword">new</span> THREE.MeshLambertMaterial(&#123;<span class="hljs-comment">//网格材质，与光照有反应，漫反射</span><br>    <span class="hljs-built_in">color</span>:<span class="hljs-number">0xff0000</span>&#125;);<span class="hljs-comment">//设置材质颜色</span><br><span class="hljs-keyword">const</span> cube = <span class="hljs-keyword">new</span> THREE.Mesh( geometry, material );<span class="hljs-comment">//生成网格模型</span><br>scene.<span class="hljs-built_in">add</span>(cube);<br></code></pre></td></tr></table></figure>
+<h5 id="加载现有的obj模型"><a href="#加载现有的obj模型" class="headerlink" title="加载现有的obj模型."></a>加载现有的obj模型.</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">loadObj</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve,reject</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span>(cellObj)&#123;<br>            resolve(cellObj)<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> OBJLoader();<br>            <span class="hljs-comment">//只能使用绝对路径,建议放在静态资源目录下</span><br>            loader.load(<span class="hljs-string">&#x27;/cell2.obj&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>&#123;<br>                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;obj:&quot;</span>, obj)<br>                <span class="hljs-comment">// 查看obj模型的几何体大小,方便后续摆放</span><br>                <span class="hljs-comment">// const box = new THREE.Box3()</span><br>                <span class="hljs-comment">// box.setFromObject(cellObj);</span><br>                <span class="hljs-comment">// const v3 = new THREE.Vector3()</span><br>                <span class="hljs-comment">// box.getSize(v3)</span><br>                <span class="hljs-comment">// console.log(&#x27;查看返回的包围盒尺寸&#x27;, v3);//实际尺寸:40,41,12</span><br>                cellObj = obj.children[<span class="hljs-number">0</span>]<br>                resolve(cellObj)<br>            &#125;)<br>        &#125;<br>    &#125;)<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h4 id="设置光源"><a href="#设置光源" class="headerlink" title="设置光源"></a>设置光源</h4><h5 id="点光源"><a href="#点光源" class="headerlink" title="点光源:"></a>点光源:</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">const</span> <span class="hljs-built_in">point</span> = <span class="hljs-keyword">new</span> THREE.PointLight(<span class="hljs-number">0xffffff</span>);<br><span class="hljs-built_in">point</span>.position.<span class="hljs-built_in">set</span>(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>, <span class="hljs-number">0</span>);<br>scene.<span class="hljs-built_in">add</span>(<span class="hljs-built_in">point</span>);<br><span class="hljs-comment">//辅助工具</span><br><span class="hljs-keyword">const</span> pointLightHelper=<span class="hljs-keyword">new</span> THREE.PointLightHelper(<span class="hljs-built_in">point</span>,<span class="hljs-number">10</span>,<span class="hljs-number">0xff00ff</span>);<br>scene.<span class="hljs-built_in">add</span>(pointLightHelper);<br></code></pre></td></tr></table></figure>
+<h5 id="平行光"><a href="#平行光" class="headerlink" title="平行光:"></a>平行光:</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">const</span> <span class="hljs-built_in">directionalLight</span> = <span class="hljs-keyword">new</span> THREE.DirectionalLight(<span class="hljs-number">0xffffff</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">directionalLight</span>.position.<span class="hljs-built_in">set</span>(<span class="hljs-number">400</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span>);<br>scene.<span class="hljs-built_in">add</span>(<span class="hljs-built_in">directionalLight</span>);<br><span class="hljs-comment">//辅助工具</span><br><span class="hljs-keyword">const</span> directionalLightHelper=<span class="hljs-keyword">new</span> THREE.DirectionalLightHelper(<span class="hljs-built_in">directionalLight</span>,<span class="hljs-number">50</span>,<span class="hljs-number">0x00ff00</span>);<br>scene.<span class="hljs-built_in">add</span>(directionalLightHelper);<br></code></pre></td></tr></table></figure>
+<h5 id="环境光-用于上述光源照射不到的面-会与材质颜色做混合运算"><a href="#环境光-用于上述光源照射不到的面-会与材质颜色做混合运算" class="headerlink" title="环境光:用于上述光源照射不到的面.会与材质颜色做混合运算."></a>环境光:用于上述光源照射不到的面.会与材质颜色做混合运算.</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">const</span> <span class="hljs-built_in">ambient</span> = <span class="hljs-keyword">new</span> THREE.AmbientLight(<span class="hljs-number">0x666666</span>);<br>scene.<span class="hljs-built_in">add</span>(<span class="hljs-built_in">ambient</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h4><p>点击事件本质上是将相机位置和屏幕点击位置连起来画射线,穿过的模型就是被点击的物体.<br>ThreeJs提供了射线类<strong>Raycaster</strong>来完成这个功能.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> raycaster = <span class="hljs-keyword">new</span> THREE.Raycaster();<br><span class="hljs-comment">//点击监听.</span><br><span class="hljs-function"><span class="hljs-title">onMouseDown</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">//将屏幕坐标系转化为webGL中的世界坐标系(屏幕中心为原点,左下为-1/-1,右上为1/1).</span><br>    mouse.x = (event.clientX / <span class="hljs-built_in">window</span>.innerWidth) * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>;<br>    mouse.y = -(event.clientY / <span class="hljs-built_in">window</span>.innerHeight) * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;<br>    <span class="hljs-comment">//使用二维坐标和起点来更新射线.</span><br>    raycaster.setFromCamera(mouse, <span class="hljs-built_in">this</span>.camera);<br>    <span class="hljs-comment">//得到点击的几何体列表(按从近向远排列)</span><br>    <span class="hljs-keyword">var</span> raycasters = raycaster.intersectObjects(<span class="hljs-built_in">this</span>.scene.children);<br>    <span class="hljs-keyword">if</span> (raycasters.length &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">const</span> <span class="hljs-built_in">object</span> = raycasters[<span class="hljs-number">0</span>].object<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;命中的第一个模型:&#x27;</span>, <span class="hljs-built_in">object</span>)<br>    &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+<h5 id="简单的点击特效-发光外壳"><a href="#简单的点击特效-发光外壳" class="headerlink" title="简单的点击特效:发光外壳"></a>简单的点击特效:发光外壳</h5><p>使用效果组合器接管渲染器.</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">var renderPass = <span class="hljs-keyword">new</span> <span class="hljs-constructor">RenderPass(<span class="hljs-params">scene</span>, <span class="hljs-params">camera</span>)</span>;<br>var composer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">EffectComposer(<span class="hljs-params">renderer</span>)</span>;<br>composer.add<span class="hljs-constructor">Pass(<span class="hljs-params">renderPass</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>将</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">this</span>.renderer.render(<span class="hljs-keyword">this</span>.scene, <span class="hljs-keyword">this</span>.camera);<br></code></pre></td></tr></table></figure>
+<p>替换为</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">this</span>.composer.render(<span class="hljs-keyword">this</span>.scene, <span class="hljs-keyword">this</span>.camera);<br></code></pre></td></tr></table></figure>
+<p>在效果组合器中增加一个轮廓处理器.</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">var outlinePass = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OutlinePass(<span class="hljs-params">new</span> THREE.Vector2(<span class="hljs-params">window</span>.<span class="hljs-params">innerWidth</span>, <span class="hljs-params">window</span>.<span class="hljs-params">innerHeight</span>)</span>, scene, camera);<br>outlinePass.visibleEdgeColor = <span class="hljs-keyword">new</span> THREE.<span class="hljs-constructor">Color(1, 1, 1)</span>;<br>outlinePass.hiddenEdgeColor = <span class="hljs-keyword">new</span> THREE.<span class="hljs-constructor">Color(1, 1, 1)</span>;<br>outlinePass.edgeThickness = <span class="hljs-number">3.0</span>;<br>outlinePass.pulsePeriod = <span class="hljs-number">3</span> <span class="hljs-comment">//闪烁</span><br>var composer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">EffectComposer(<span class="hljs-params">renderer</span>)</span>;<br>composer.add<span class="hljs-constructor">Pass(<span class="hljs-params">renderPass</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>点击事件中,为轮廓处理器设置目标对象.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">const</span> <span class="hljs-keyword">object</span> = raycasters[<span class="hljs-number">0</span>].<span class="hljs-keyword">object</span><br><span class="hljs-keyword">this</span>.outlinePass.selectedObjects = [<span class="hljs-keyword">object</span>];<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="增加2D弹窗"><a href="#增加2D弹窗" class="headerlink" title="增加2D弹窗"></a>增加2D弹窗</h4><p>简单的2D弹窗通过单独的渲染器CSS2DRenderer配合CSS2DObject实现.</p>
+<p>直接在canvas同级添加一个element,并和Render绑定.</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const labelRenderer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">CSS2DRenderer()</span>;<br>labelRenderer.set<span class="hljs-constructor">Size(<span class="hljs-params">root</span>.<span class="hljs-params">clientWidth</span>, <span class="hljs-params">root</span>.<span class="hljs-params">clientHeight</span>)</span>;<br>canvas.parentElement.append<span class="hljs-constructor">Child(<span class="hljs-params">labelRenderer</span>.<span class="hljs-params">domElement</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>使用dom element创建CSS2DObject,像添加3D模型一样添加到场景中.</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs maxima">const div = labelLayout.cloneNode(<span class="hljs-literal">true</span>);<br>div.<span class="hljs-built_in">style</span>.visibility = <span class="hljs-string">&quot;visible&quot;</span>;<br>div.childNodes[<span class="hljs-number">0</span>].childNodes[<span class="hljs-number">0</span>].textContent = item.vol + &#x27;V\n#<span class="hljs-number">21</span>&#x27;;<br>const <span class="hljs-built_in">label</span> = <span class="hljs-built_in">new</span> CSS2DObject(div);<br><span class="hljs-built_in">label</span>.name = item.name<br><span class="hljs-built_in">label</span>.<span class="hljs-built_in">position</span>.<span class="hljs-built_in">copy</span>(copyObj.<span class="hljs-built_in">position</span>);//这里直接使用对应3D模型的坐标.<br><span class="hljs-built_in">label</span>.translateZ(<span class="hljs-number">40</span>)//沿Z轴上移,显示效果为悬浮在对应模型上方.<br><span class="hljs-built_in">scene</span>.add(<span class="hljs-built_in">label</span>)<br></code></pre></td></tr></table></figure>
+<p>渲染时,将CSS2DRenderer一起执行即可.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">this</span>.labelRenderer.render(<span class="hljs-keyword">this</span>.scene, <span class="hljs-keyword">this</span>.camera);<br></code></pre></td></tr></table></figure>
+
+<h4 id="动画效果的实现"><a href="#动画效果的实现" class="headerlink" title="动画效果的实现."></a>动画效果的实现.</h4><p>屏幕显示的内容本质上是镜头和场景共同作用的结果.<br>只需要以固定间隔修改两者之一,即可做出动画效果.</p>
+<ul>
+<li>简单的视角改变,可以用通过镜头的位移和角度实现.</li>
+<li>模型动画,需要单独修改场景甚至指定模型.</li>
+</ul>
+<p>示例:<br>指定几个变量,在render方法中开启动画对应的镜头计算.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">render() &#123;<br>  <span class="hljs-keyword">this</span>.composer.render(<span class="hljs-keyword">this</span>.scene, <span class="hljs-keyword">this</span>.camera);<br>  <span class="hljs-keyword">this</span>.labelRenderer.render(<span class="hljs-keyword">this</span>.scene, <span class="hljs-keyword">this</span>.camera);<br>  requestAnimationFrame(<span class="hljs-keyword">this</span>.render);<br>  <span class="hljs-keyword">if</span> (animating1) &#123;<br>    <span class="hljs-keyword">this</span>.calAnimatPositions1()<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (animating2) &#123;<br>    <span class="hljs-keyword">this</span>.calAnimatPositions2()<br>  &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (animating3) &#123;<br>    <span class="hljs-keyword">this</span>.calAnimatPositions3()<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p>三段动画:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">calAnimatPositions1() &#123;<br>  <span class="hljs-comment">// camera.position.set(500, 5, 150); //起始位置</span><br>  <span class="hljs-comment">// camera.position.set(0, 5, 25); //目标位置</span><br>  <span class="hljs-keyword">this</span>.camera.position.x -= <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">this</span>.camera.position.z -= <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">this</span>.camera.lookAt(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.z &lt; <span class="hljs-number">25</span>) &#123;<br>    <span class="hljs-keyword">this</span>.camera.position.z = <span class="hljs-number">25</span><br>  &#125;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.x &lt;= <span class="hljs-number">0</span>) &#123;<br>    animating1 = <span class="hljs-literal">false</span><br>    animating2 = <span class="hljs-literal">true</span><br>  &#125;<br>&#125;,<br>calAnimatPositions2() &#123;<br>  <span class="hljs-comment">// camera.position.set(0, 5, 25); //起始位置</span><br>  <span class="hljs-comment">// camera.position.set(0, -300, 100); //目标位置</span><br>  <span class="hljs-keyword">this</span>.camera.position.y -= <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">this</span>.camera.position.z += <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">this</span>.camera.lookAt(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.z &gt; <span class="hljs-number">100</span>) &#123;<br>    <span class="hljs-keyword">this</span>.camera.position.z = <span class="hljs-number">100</span><br>  &#125;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.y &lt;= -<span class="hljs-number">300</span>) &#123;<br>    animating2 = <span class="hljs-literal">false</span><br>    animating3 = <span class="hljs-literal">true</span><br>  &#125;<br>&#125;,<br>calAnimatPositions3() &#123;<br>  <span class="hljs-comment">// camera.position.set(0, -300, 100); //起始位置</span><br>  <span class="hljs-comment">// camera.position.set(0, 300, 100); //目标位置</span><br>  <span class="hljs-keyword">this</span>.camera.position.y += <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.y &lt;= <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">this</span>.camera.position.x += <span class="hljs-number">2</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">this</span>.camera.position.x -= <span class="hljs-number">2</span>;<br>  &#125;<br>  <span class="hljs-keyword">this</span>.camera.lookAt(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.camera.position.y &gt;= <span class="hljs-number">300</span>) &#123;<br>    animating3 = <span class="hljs-literal">false</span><br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ThreeJS提供的功能还远不止于此.纹理/精灵/骨骼等高级应用可以完成更酷炫和实用的需求.<br>参考资料:<br><a target="_blank" rel="noopener" href="https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene">https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene</a><br><a target="_blank" rel="noopener" href="http://www.webgl3d.cn/Three.js/">http://www.webgl3d.cn/Three.js/</a><br><a target="_blank" rel="noopener" href="https://sogrey.top/Three.js-start/start/#top">https://sogrey.top/Three.js-start/start/#top</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web/">web</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/17/%E9%9D%A2%E8%AF%95%E5%AE%98%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">
+                        <span class="hidden-mobile">面试官操作指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"7DiEYzgBskLT3mj2MxBV0ihe-gzGzoHsz","appKey":"rfIgwRMUNEo7pqoucFhculL9","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

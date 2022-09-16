@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      19
        分钟
     </span>
   
@@ -273,7 +273,7 @@
 <p><em>根据不同浏览器环境,使用不同机制来生成这个微任务.</em></p>
 <p>使用nextTick更新dom:</p>
 <ul>
-<li>watcher更新放入字典中,使用nextTick统一执行字典中所有watcher的run方法.</li>
+<li>watcher更新放入字典中,使用nextTick统一执行字典中所有watcher的run方法,run方法中使用虚拟dom进行对比,并更新真实dom(<strong>注意:更新dom并不代表渲染dom</strong>).</li>
 <li>由于更新dom的watcher在微任务中执行,为了能最快获取更新后的dom,vue也提供了nextTick方法给上层使用,只需在改变数据后执行nextTick,就能通过紧随其后的微任务获取到更新后的dom.</li>
 </ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">this</span>.content = <span class="hljs-string">&quot;改变后的&quot;</span>   <span class="hljs-comment">//触发watcher.update,对应watcher被加入队列,队列统一处理方法被加入微任务队列.</span><br>console.log(<span class="hljs-string">&quot;content改变前:&quot;</span>,<span class="hljs-keyword">this</span>.$refs.content.innerText)<br><span class="hljs-keyword">this</span>.$nextTick(() =&gt; &#123;<span class="hljs-comment">//继续加入微任务,由于在上面的微任务后面,因此可以得到更新后的dom</span><br>  console.log(<span class="hljs-string">&quot;content改变后:&quot;</span>,<span class="hljs-keyword">this</span>.$refs.content.innerText)<br>&#125;)<br></code></pre></td></tr></table></figure>
